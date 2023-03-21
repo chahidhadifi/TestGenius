@@ -227,7 +227,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 export default {
     data() {
@@ -278,7 +278,8 @@ export default {
                 config: { headers: { "Content-Type": "multipart/form-data" } },
             })
                 .then((response) => {
-                    this.$router.push("/");
+                    //this.$router.push("/");
+                    console.log("welcome");
                 })
                 .catch((error) => {
                     console.log(error);
