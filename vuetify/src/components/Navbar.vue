@@ -14,7 +14,7 @@
                 <v-divider></v-divider>
 
                 <v-list nav dense>
-                    <v-list-item router to="/">
+                    <v-list-item router to="/dashboard">
                         <v-list-item-action>
                             <v-icon>mdi-view-dashboard</v-icon>
                         </v-list-item-action>
