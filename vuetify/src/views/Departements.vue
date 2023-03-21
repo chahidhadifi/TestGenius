@@ -25,9 +25,9 @@
                                                 class="mb-2"
                                                 v-bind="attrs"
                                                 v-on="on"
-                                                ><v-icon left>add</v-icon> Add
-                                                Condidate</v-btn
-                                            >
+                                                ><v-icon left>add</v-icon>
+                                                Ajouter un département
+                                            </v-btn>
                                         </template>
                                         <v-card>
                                             <v-card-title>
