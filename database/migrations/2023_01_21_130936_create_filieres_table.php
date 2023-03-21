@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom')->unique()->nullable(false);
             $table->unsignedBigInteger('departement_id');
-             $table->foreign('departement_id')
+            $table->foreign('departement_id')
                   ->references('id')
                   ->on('departements')
                   ->onDelete('cascade')

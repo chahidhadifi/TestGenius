@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle')->nullable(false);
             $table->unsignedBigInteger('examen_id')->nullable(false);
-             $table->foreign('examen_id')->references('id')->on('examens')->onDelete('cascade');
+            $table->foreign('examen_id')->references('id')->on('examens')->onDelete('cascade');
             $table->timestamps();
         });
     }
