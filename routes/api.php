@@ -32,16 +32,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('filieres',FiliereController::class)->middleware('auth:sanctum');;
-Route::apiResource('etudiants',EtudiantController::class)->middleware('auth:sanctum');;
-Route::apiResource('examens',ExamenController::class)->middleware('auth:sanctum');;
-Route::apiResource('matieres',MatiereController::class)->middleware('auth:sanctum');;
-Route::apiResource('professeurs',ProfesseurController::class)->middleware('auth:sanctum');;
-Route::apiResource('propositions',PropositionController::class)->middleware('auth:sanctum');;
-Route::apiResource('questions',QuestionController::class)->middleware('auth:sanctum');;
-Route::apiResource('reponses',ReponseController::class)->middleware('auth:sanctum');;
-Route::apiResource('notes',NoteController::class)->middleware('auth:sanctum');;
-Route::apiResource('departements', DepartementController::class)->middleware('auth:sanctum');;
+//TODO: ->middleware('auth:sanctum');
+Route::apiResource('filieres',FiliereController::class);
+Route::apiResource('etudiants',EtudiantController::class);
+Route::apiResource('examens',ExamenController::class);
+Route::apiResource('matieres',MatiereController::class);
+Route::apiResource('professeurs',ProfesseurController::class);
+Route::apiResource('propositions',PropositionController::class);
+Route::apiResource('questions',QuestionController::class);
+Route::apiResource('reponses',ReponseController::class);
+Route::apiResource('notes',NoteController::class);
+Route::apiResource('departements', DepartementController::class);
 
 Route::post('/register', [AuthentificationController::class, 'createUser']);
 Route::post('/login', [AuthentificationController::class, 'loginUser']);

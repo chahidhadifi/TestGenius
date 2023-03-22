@@ -1,270 +1,204 @@
 <template>
-    <v-layout row>
-        <v-flex>
-            <v-app style="background-color: white" class="ma-n4">
-                <v-container>
-                    <template>
-                        <v-row style="margin-top: 20px">
-                            <v-col cols="12" sm="6">
-                                <v-row>
-                                    <v-dialog
-                                        v-model="dialog"
-                                        persistent
-                                        max-width="600px"
-                                    >
-                                        <template
-                                            v-slot:activator="{ on, attrs }"
-                                        >
-                                            <v-btn
-                                                style="
-                                                    margin-top: 12px;
-                                                    margin-left: 10px;
-                                                "
-                                                color="success"
-                                                dark
-                                                class="mb-2"
-                                                v-bind="attrs"
-                                                v-on="on"
-                                                ><v-icon left>add</v-icon>
-                                                Ajouter un département
-                                            </v-btn>
-                                        </template>
-                                        <v-card>
-                                            <v-card-title>
-                                                <span class="text-h5"
-                                                    >User Profile</span
-                                                >
-                                            </v-card-title>
-                                            <v-card-text>
-                                                <v-container>
-                                                    <v-row>
-                                                        <v-col
-                                                            cols="12"
-                                                            sm="6"
-                                                            md="4"
-                                                        >
-                                                            <v-text-field
-                                                                label="Legal first name*"
-                                                                required
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col
-                                                            cols="12"
-                                                            sm="6"
-                                                            md="4"
-                                                        >
-                                                            <v-text-field
-                                                                label="Legal middle name"
-                                                                hint="example of helper text only on focus"
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col
-                                                            cols="12"
-                                                            sm="6"
-                                                            md="4"
-                                                        >
-                                                            <v-text-field
-                                                                label="Legal last name*"
-                                                                hint="example of persistent helper text"
-                                                                persistent-hint
-                                                                required
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12">
-                                                            <v-text-field
-                                                                label="Email*"
-                                                                required
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12">
-                                                            <v-text-field
-                                                                label="Password*"
-                                                                type="password"
-                                                                required
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6">
-                                                            <v-select
-                                                                :items="[
-                                                                    '0-17',
-                                                                    '18-29',
-                                                                    '30-54',
-                                                                    '54+',
-                                                                ]"
-                                                                label="Age*"
-                                                                required
-                                                            ></v-select>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6">
-                                                            <v-autocomplete
-                                                                :items="[
-                                                                    'Skiing',
-                                                                    'Ice hockey',
-                                                                    'Soccer',
-                                                                    'Basketball',
-                                                                    'Hockey',
-                                                                    'Reading',
-                                                                    'Writing',
-                                                                    'Coding',
-                                                                    'Basejump',
-                                                                ]"
-                                                                label="Interests"
-                                                                multiple
-                                                            ></v-autocomplete>
-                                                        </v-col>
-                                                    </v-row>
-                                                </v-container>
-                                                <small
-                                                    >*indicates required
-                                                    field</small
-                                                >
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn
-                                                    color="blue darken-1"
-                                                    text
-                                                    @click="dialog = false"
-                                                >
-                                                    Close
-                                                </v-btn>
-                                                <v-btn
-                                                    color="blue darken-1"
-                                                    text
-                                                    @click="dialog = false"
-                                                >
-                                                    Save
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </v-row>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                                <v-text-field
-                                    v-model="search"
-                                    append-icon="mdi-magnify"
-                                    label="Search"
-                                    single-line
-                                    hide-details
-                                ></v-text-field>
-                            </v-col>
-                        </v-row>
-                        <br />
-                        <v-data-table
-                            :headers="headers"
-                            :items="desserts"
-                            :search="search"
-                        ></v-data-table>
+    <v-container>
+        <v-snackbar v-model="snackbar" :color="color">
+            {{ message }}
+        </v-snackbar>
+        <v-row>
+            <v-col>
+                <v-dialog v-model="dialog" max-width="500px">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            color="primary"
+                            dark
+                            class="mb-2"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            <v-icon>mdi mdi-plus</v-icon> Ajouter un département
+                        </v-btn>
                     </template>
-                </v-container>
-            </v-app>
-        </v-flex>
-    </v-layout>
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="editedItem.nom"
+                                            label="Nom"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <!-- <v-col cols="12">
+                                        <v-text-field
+                                            v-model="editedItem.email"
+                                            label="Email"
+                                        ></v-text-field>
+                                    </v-col> -->
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="dialog = false"
+                                >Annuler</v-btn
+                            >
+                            <v-btn color="blue darken-1" text @click="save"
+                                >Sauvegarder</v-btn
+                            >
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-col>
+            <v-col>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-col>
+        </v-row>
+
+        <v-row>
+            <v-col cols="12">
+                <v-data-table
+                    :headers="headers"
+                    :items="departements"
+                    :search="search"
+                    class="elevation-1"
+                >
+                    <template v-slot:no-data>
+                        <v-progress-linear
+                            color="blue"
+                            indeterminate
+                            reverse
+                        ></v-progress-linear>
+                    </template>
+                    <template v-slot:[`item.actions`]="{ item }">
+                        <v-icon
+                            class="mr-2"
+                            @click="editItem(item)"
+                            color="green darken-2"
+                        >
+                            mdi mdi-pencil-box
+                        </v-icon>
+                        <v-icon
+                            class="mr-2"
+                            @click="deleteItem(item)"
+                            color="red darken-2"
+                        >
+                            mdi mdi-delete
+                        </v-icon>
+                    </template>
+                </v-data-table>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    data() {
-        return {
-            dialog: false,
-            search: "",
-            headers: [
-                {
-                    text: "Dessert (100g serving)",
-                    align: "start",
-                    sortable: false,
-                    value: "name",
-                },
-                { text: "Calories", value: "calories" },
-                { text: "Fat (g)", value: "fat" },
-                { text: "Carbs (g)", value: "carbs" },
-                { text: "Protein (g)", value: "protein" },
-                { text: "Iron (%)", value: "iron" },
-            ],
-            desserts: [
-                {
-                    name: "Frozen Yogurt",
-                    calories: 159,
-                    fat: 6.0,
-                    carbs: 24,
-                    protein: 4.0,
-                    iron: 1,
-                },
-                {
-                    name: "Ice cream sandwich",
-                    calories: 237,
-                    fat: 9.0,
-                    carbs: 37,
-                    protein: 4.3,
-                    iron: 1,
-                },
-                {
-                    name: "Eclair",
-                    calories: 262,
-                    fat: 16.0,
-                    carbs: 23,
-                    protein: 6.0,
-                    iron: 7,
-                },
-                {
-                    name: "Cupcake",
-                    calories: 305,
-                    fat: 3.7,
-                    carbs: 67,
-                    protein: 4.3,
-                    iron: 8,
-                },
-                {
-                    name: "Gingerbread",
-                    calories: 356,
-                    fat: 16.0,
-                    carbs: 49,
-                    protein: 3.9,
-                    iron: 16,
-                },
-                {
-                    name: "Jelly bean",
-                    calories: 375,
-                    fat: 0.0,
-                    carbs: 94,
-                    protein: 0.0,
-                    iron: 0,
-                },
-                {
-                    name: "Lollipop",
-                    calories: 392,
-                    fat: 0.2,
-                    carbs: 98,
-                    protein: 0,
-                    iron: 2,
-                },
-                {
-                    name: "Honeycomb",
-                    calories: 408,
-                    fat: 3.2,
-                    carbs: 87,
-                    protein: 6.5,
-                    iron: 45,
-                },
-                {
-                    name: "Donut",
-                    calories: 452,
-                    fat: 25.0,
-                    carbs: 51,
-                    protein: 4.9,
-                    iron: 22,
-                },
-                {
-                    name: "KitKat",
-                    calories: 518,
-                    fat: 26.0,
-                    carbs: 65,
-                    protein: 7,
-                    iron: 6,
-                },
-            ],
-        };
+    name: "DepartementsList",
+    data: () => ({
+        color: "primary",
+        message: "",
+        search: "",
+        dialog: false,
+        snackbar: false,
+        departements: [],
+        editedIndex: -1,
+        editedItem: {
+            id: "",
+            nom: "",
+        },
+        headers: [
+            {
+                text: "#",
+                align: "start",
+                sortable: false,
+                value: "id",
+            },
+            { text: "Nom", value: "nom" },
+            { text: "Action", value: "actions" },
+        ],
+    }),
+    created() {
+        this.getDepartements();
+    },
+    mounted() {
+        console.log("mounted() called");
+    },
+    computed: {
+        formTitle() {
+            return this.editedIndex === -1
+                ? "Ajouter un département"
+                : "Modifier un département";
+        },
+    },
+    methods: {
+        getDepartements() {
+            var page = "http://127.0.0.1:8000/api/departements";
+            axios.get(page).then(({ data }) => {
+                console.log(data);
+                this.departements = data;
+            });
+        },
+        save() {
+            if (this.editedIndex > -1) {
+                Object.assign(
+                    this.departements[this.editedIndex],
+                    this.editedItem
+                );
+                var editRecords =
+                    "http://127.0.0.1:8000/api/departements/" +
+                    this.editedItem.id;
+                axios.put(editRecords, this.editedItem).then(({ data }) => {
+                    this.editItem.nom = "";
+                    this.editItem = "";
+                    this.snackbar = true;
+                    this.message = "Le département a été modifié avec succès";
+                    this.color = "success";
+                    this.dialog = false;
+                    this.getDepartements();
+                });
+            } else {
+                axios
+                    .post(
+                        "http://127.0.0.1:8000/api/departements/",
+                        this.editedItem
+                    )
+                    .then(({ data }) => {
+                        this.snackbar = true;
+                        this.message =
+                            "Le département a été ajouté avec succès";
+                        this.color = "success";
+                        this.dialog = false;
+                        this.getDepartements();
+                    });
+            }
+            this.dialog = false;
+        },
+        editItem(item) {
+            this.editedIndex = this.departements.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialog = true;
+        },
+        deleteItem(item) {
+            const index = this.departements.indexOf(item);
+            this.departements.splice(index, 1);
+            var url = `http://127.0.0.1:8000/api/departements/${item.id}`;
+            axios.delete(url);
+            this.snackbar = true;
+            this.message = "Le département a été supprimé avec succès";
+            this.color = "error";
+        },
     },
 };
 </script>
