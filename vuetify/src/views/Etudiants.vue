@@ -14,7 +14,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            <v-icon>mdi mdi-plus</v-icon> Ajouter un département
+                            <v-icon>mdi mdi-plus</v-icon> Ajouter un étudiant
                         </v-btn>
                     </template>
                     <v-card>
@@ -30,12 +30,32 @@
                                             label="Nom"
                                         ></v-text-field>
                                     </v-col>
-                                    <!-- <v-col cols="12">
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="editedItem.prenom"
+                                            label="Prénom"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
                                         <v-text-field
                                             v-model="editedItem.email"
                                             label="Email"
+                                            type="email"
                                         ></v-text-field>
-                                    </v-col> -->
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="editedItem.password"
+                                            label="Mot de passe"
+                                            type="password"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-text-field
+                                            v-model="editedItem.filiere_id"
+                                            label="Filiere"
+                                        ></v-text-field>
+                                    </v-col>
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -69,7 +89,7 @@
             <v-col cols="12">
                 <v-data-table
                     :headers="headers"
-                    :items="departements"
+                    :items="etudiants"
                     :search="search"
                     class="elevation-1"
                 >
@@ -105,18 +125,22 @@
 <script>
 import axios from "axios";
 export default {
-    name: "DepartementsList",
+    name: "EtudiantsList",
     data: () => ({
         color: "primary",
         message: "",
         search: "",
         dialog: false,
         snackbar: false,
-        departements: [],
+        etudiants: [],
         editedIndex: -1,
         editedItem: {
             id: "",
             nom: "",
+            prenom: "",
+            email: "",
+            password: "",
+            filiere_id: "",
         },
         headers: [
             {
@@ -126,11 +150,15 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
+            { text: "Prénom", value: "prenom" },
+            { text: "Email", value: "email" },
+            { text: "password", value: "password" },
+            { text: "Filiere", value: "filiere_id" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
-        this.getDepartements();
+        this.getEtudiants();
     },
     mounted() {
         console.log("mounted() called");
@@ -138,65 +166,61 @@ export default {
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Ajouter un département"
-                : "Modifier un département";
+                ? "Ajouter un étudiant"
+                : "Modifier un étudiant";
         },
     },
     methods: {
-        getDepartements() {
-            var page = "http://127.0.0.1:8000/api/departements";
+        getEtudiants() {
+            var page = "http://127.0.0.1:8000/api/etudiants";
             axios.get(page).then(({ data }) => {
                 console.log(data);
-                this.departements = data;
+                this.etudiants = data;
             });
         },
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(
-                    this.departements[this.editedIndex],
+                    this.etudiants[this.editedIndex],
                     this.editedItem
                 );
                 var editRecords =
-                    "http://127.0.0.1:8000/api/departements/" +
-                    this.editedItem.id;
+                    "http://127.0.0.1:8000/api/etudiants/" + this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
-                    this.editItem.nom = "";
-                    this.editItem = "";
                     this.snackbar = true;
-                    this.message = "Le département a été modifié avec succès";
+                    this.message = "L'étudiant a été modifié avec succès";
                     this.color = "success";
                     this.dialog = false;
-                    this.getDepartements();
+                    this.getEtudiants();
                 });
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/departements/",
+                        "http://127.0.0.1:8000/api/etudiants/",
                         this.editedItem
                     )
                     .then(({ data }) => {
                         this.snackbar = true;
-                        this.message =
-                            "Le département a été ajouté avec succès";
+                        this.message = "L'étudiant a été ajouté avec succès";
                         this.color = "success";
                         this.dialog = false;
-                        this.getDepartements();
+                        this.getEtudiants();
                     });
             }
             this.dialog = false;
         },
         editItem(item) {
-            this.editedIndex = this.departements.indexOf(item);
+            this.editedIndex = this.Etudiants.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
         deleteItem(item) {
-            const index = this.departements.indexOf(item);
-            this.departements.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/departements/${item.id}`;
+            const index = this.Etudiants.indexOf(item);
+            this.etudiants.splice(index, 1);
+            var url = `http://127.0.0.1:8000/api/etudiants/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
-            this.message = "Le département a été supprimé avec succès";
+            this.message = "L'étudiant a été supprimé avec succès";
             this.color = "error";
         },
     },

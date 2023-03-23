@@ -38,7 +38,10 @@ class EtudiantController extends Controller
     {
         $etudiants = new Etudiant([
             'nom' => $request->input('nom'),
- 
+            'prenom' => $request->input('prenom'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'filiere_id' => $request->input('filiere_id'),
         ]);
         $etudiants->save();
         return response()->json('');
