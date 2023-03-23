@@ -14,7 +14,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            <v-icon>mdi mdi-plus</v-icon> Ajouter un département
+                            <v-icon>mdi mdi-plus</v-icon> Ajouter un professeur
                         </v-btn>
                     </template>
                     <v-card>
