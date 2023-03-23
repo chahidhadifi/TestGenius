@@ -38,7 +38,7 @@ class ProfesseurController extends Controller
     {
         $professeurs = new Professeur([
             'nom' => $request->input('nom'),
- 
+            'prenom' => $request->input('prenom'),
         ]);
         $professeurs->save();
         return response()->json('');

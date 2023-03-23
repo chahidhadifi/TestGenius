@@ -30,12 +30,12 @@
                                             label="Nom"
                                         ></v-text-field>
                                     </v-col>
-                                    <!-- <v-col cols="12">
+                                    <v-col cols="12">
                                         <v-text-field
-                                            v-model="editedItem.email"
-                                            label="Email"
+                                            v-model="editedItem.prenom"
+                                            label="Prénom"
                                         ></v-text-field>
-                                    </v-col> -->
+                                    </v-col>
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -69,7 +69,7 @@
             <v-col cols="12">
                 <v-data-table
                     :headers="headers"
-                    :items="departements"
+                    :items="professeurs"
                     :search="search"
                     class="elevation-1"
                 >
@@ -105,18 +105,19 @@
 <script>
 import axios from "axios";
 export default {
-    name: "DepartementsList",
+    name: "ProfesseursList",
     data: () => ({
         color: "primary",
         message: "",
         search: "",
         dialog: false,
         snackbar: false,
-        departements: [],
+        professeurs: [],
         editedIndex: -1,
         editedItem: {
             id: "",
             nom: "",
+            prenom: "",
         },
         headers: [
             {
@@ -126,11 +127,12 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
+            { text: "Prenom", value: "prenom" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
-        this.getDepartements();
+        this.getProfesseurs();
     },
     mounted() {
         console.log("mounted() called");
@@ -138,65 +140,64 @@ export default {
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Ajouter un département"
-                : "Modifier un département";
+                ? "Ajouter un professeur"
+                : "Modifier un professeur";
         },
     },
     methods: {
-        getDepartements() {
-            var page = "http://127.0.0.1:8000/api/departements";
+        getProfesseurs() {
+            var page = "http://127.0.0.1:8000/api/professeurs";
             axios.get(page).then(({ data }) => {
                 console.log(data);
-                this.departements = data;
+                this.professeurs = data;
             });
         },
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(
-                    this.departements[this.editedIndex],
+                    this.professeurs[this.editedIndex],
                     this.editedItem
                 );
                 var editRecords =
-                    "http://127.0.0.1:8000/api/departements/" +
+                    "http://127.0.0.1:8000/api/professeurs/" +
                     this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
-                    this.editItem.nom = "";
-                    this.editItem = "";
                     this.snackbar = true;
-                    this.message = "Le département a été modifié avec succès";
+                    this.message = "Le professeur a été modifié avec succès";
                     this.color = "success";
                     this.dialog = false;
-                    this.getDepartements();
+                    this.getProfesseurs();
                 });
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/departements/",
+                        "http://127.0.0.1:8000/api/professeurs/",
                         this.editedItem
                     )
                     .then(({ data }) => {
+                        console.log("add record");
+                        console.log(data);
                         this.snackbar = true;
-                        this.message =
-                            "Le département a été ajouté avec succès";
+                        this.message = "Le professeur a été ajouté avec succès";
                         this.color = "success";
                         this.dialog = false;
-                        this.getDepartements();
+                        this.getProfesseurs();
                     });
             }
             this.dialog = false;
         },
         editItem(item) {
-            this.editedIndex = this.departements.indexOf(item);
+            this.editedIndex = this.professeurs.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
         deleteItem(item) {
-            const index = this.departements.indexOf(item);
-            this.departements.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/departements/${item.id}`;
+            const index = this.professeurs.indexOf(item);
+            this.professeurs.splice(index, 1);
+            var url = `http://127.0.0.1:8000/api/professeurs/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
-            this.message = "Le département a été supprimé avec succès";
+            this.message = "Le professeur a été supprimé avec succès";
             this.color = "error";
         },
     },
