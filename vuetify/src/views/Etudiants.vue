@@ -14,7 +14,7 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            <v-icon>mdi mdi-plus</v-icon> Ajouter une filiere
+                            <v-icon>mdi mdi-plus</v-icon> Ajouter un département
                         </v-btn>
                     </template>
                     <v-card>
@@ -30,19 +30,11 @@
                                             label="Nom"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12">
-                                        <v-text-field
-                                            v-model="editedItem.departementId"
-                                            label="Département"
-                                        ></v-text-field>
-                                    </v-col>
                                     <!-- <v-col cols="12">
-                                        <v-select
-                                            :items="departements"
-                                            v-model="editedItem.departement_id"
-                                            label="Département"
-                                            required
-                                        ></v-select>
+                                        <v-text-field
+                                            v-model="editedItem.email"
+                                            label="Email"
+                                        ></v-text-field>
                                     </v-col> -->
                                 </v-row>
                             </v-container>
@@ -77,7 +69,7 @@
             <v-col cols="12">
                 <v-data-table
                     :headers="headers"
-                    :items="filieres"
+                    :items="departements"
                     :search="search"
                     class="elevation-1"
                 >
@@ -113,20 +105,18 @@
 <script>
 import axios from "axios";
 export default {
-    name: "FilieresList",
+    name: "DepartementsList",
     data: () => ({
         color: "primary",
         message: "",
         search: "",
         dialog: false,
         snackbar: false,
-        filieres: [],
-        // departements: [],
+        departements: [],
         editedIndex: -1,
         editedItem: {
             id: "",
             nom: "",
-            departementId: "",
         },
         headers: [
             {
@@ -136,13 +126,11 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
-            { text: "Département", value: "departement_id" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
-        this.getFilieres();
-        // this.getDepartements();
+        this.getDepartements();
     },
     mounted() {
         console.log("mounted() called");
@@ -150,68 +138,65 @@ export default {
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Ajouter une filiere"
-                : "Modifier une filiere";
+                ? "Ajouter un département"
+                : "Modifier un département";
         },
     },
     methods: {
-        // getDepartements() {
-        //     var page = "http://127.0.0.1:8000/api/departements";
-        //     axios.get(page).then(({ data }) => {
-        //         console.log(data);
-        //         this.departements = data;
-        //     });
-        // },
-        getFilieres() {
-            var page = "http://127.0.0.1:8000/api/filieres";
+        getDepartements() {
+            var page = "http://127.0.0.1:8000/api/departements";
             axios.get(page).then(({ data }) => {
                 console.log(data);
-                this.filieres = data;
+                this.departements = data;
             });
         },
         save() {
             if (this.editedIndex > -1) {
-                // Object.assign(this.filieres[this.editedIndex], this.editedItem);
-                // var editRecords =
-                //     "http://127.0.0.1:8000/api/filieres/" + this.editedItem.id;
-                // axios.put(editRecords, this.editedItem).then(({ data }) => {
-                //     this.editItem.nom = "";
-                //     this.editItem.departementId = "";
-                //     //this.editItem = "";
-                //     this.snackbar = true;
-                //     this.message = "Le département a été modifié avec succès";
-                //     this.color = "success";
-                //     this.dialog = false;
-                //     this.getFilieres();
-                // });
+                Object.assign(
+                    this.departements[this.editedIndex],
+                    this.editedItem
+                );
+                var editRecords =
+                    "http://127.0.0.1:8000/api/departements/" +
+                    this.editedItem.id;
+                axios.put(editRecords, this.editedItem).then(({ data }) => {
+                    this.editItem.nom = "";
+                    this.editItem = "";
+                    this.snackbar = true;
+                    this.message = "Le département a été modifié avec succès";
+                    this.color = "success";
+                    this.dialog = false;
+                    this.getDepartements();
+                });
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/filieres/",
+                        "http://127.0.0.1:8000/api/departements/",
                         this.editedItem
                     )
                     .then(({ data }) => {
                         this.snackbar = true;
-                        this.message = "La filiere a été ajoutée avec succès";
+                        this.message =
+                            "Le département a été ajouté avec succès";
                         this.color = "success";
                         this.dialog = false;
-                        this.getFilieres();
+                        this.getDepartements();
                     });
             }
             this.dialog = false;
         },
         editItem(item) {
-            this.editedIndex = this.filieres.indexOf(item);
+            this.editedIndex = this.departements.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
         deleteItem(item) {
-            const index = this.filieres.indexOf(item);
-            this.filieres.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/filieres/${item.id}`;
+            const index = this.departements.indexOf(item);
+            this.departements.splice(index, 1);
+            var url = `http://127.0.0.1:8000/api/departements/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
-            this.message = "La filiere a été supprimée avec succès";
+            this.message = "Le département a été supprimé avec succès";
             this.color = "error";
         },
     },

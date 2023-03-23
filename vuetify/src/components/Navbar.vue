@@ -24,7 +24,7 @@
                     </v-list-item>
                     <v-list-item router to="/departements">
                         <v-list-item-action>
-                            <v-icon>mdi-pencil-box</v-icon>
+                            <v-icon>mdi mdi-home-city</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Departements</v-list-item-title>
@@ -36,6 +36,22 @@
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Filieres</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item router to="/professeurs">
+                        <v-list-item-action>
+                            <v-icon>mdi mdi-human-male-board-poll</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Professeurs</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item router to="/etudiants">
+                        <v-list-item-action>
+                            <v-icon>mdi mdi-account-school</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Etudiants</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>

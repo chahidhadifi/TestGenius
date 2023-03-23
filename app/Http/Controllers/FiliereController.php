@@ -38,7 +38,7 @@ class FiliereController extends Controller
     {
         $filieres = new Filiere([
             'nom' => $request->input('nom'),
-            'iddepartement' => $request->input('iddepartement'),
+            'departement_id' => $request->input('departement_id'),
  
         ]);
         $filieres->save();
