@@ -180,8 +180,6 @@ export default {
                 var editRecords =
                     "http://127.0.0.1:8000/api/filieres/" + this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
-                    this.editItem.nom = "";
-                    this.editItem = "";
                     this.snackbar = true;
                     this.message = "La filiere a été modifiée avec succès";
                     this.color = "success";
