@@ -6,6 +6,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Filieres from "../views/Filieres";
 import Professeurs from "../views/Professeurs";
 import Etudiants from "../views/Etudiants";
+import Matieres from "../views/Matieres";
 
 Vue.use(VueRouter);
 
@@ -30,7 +31,6 @@ const routes = [
         name: "filieres",
         component: Filieres,
     },
-    //TODO: complete views code
     {
         path: "/professeurs",
         name: "professeurs",
@@ -40,6 +40,11 @@ const routes = [
         path: "/etudiants",
         name: "etudiants",
         component: Etudiants,
+    },
+    {
+        path: "/matieres",
+        name: "marieres",
+        component: Matieres,
     },
 ];
 

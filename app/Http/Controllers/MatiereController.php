@@ -38,7 +38,7 @@ class MatiereController extends Controller
     {
         $matieres = new Matiere([
             'nom' => $request->input('nom'),
-            'idprofesseur' => $request->input('idprofesseur'),
+            'professeur_id' => $request->input('professeur_id'),
         ]);
         $matieres->save();
         return response()->json('');

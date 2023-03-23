@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->nullable(false);
-            $table->unsignedBigInteger('professeur_id')->nullable(false);
+            $table->string('nom');
+            $table->unsignedBigInteger('professeur_id');
             $table->foreign('professeur_id')
                     ->references('id')
                     ->on('professeurs')

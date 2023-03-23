@@ -38,6 +38,14 @@
                             <v-list-item-title>Filieres</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    <v-list-item router to="/matieres">
+                        <v-list-item-action>
+                            <v-icon>mdi mdi-book-open-page-variant</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Matieres</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                     <v-list-item router to="/professeurs">
                         <v-list-item-action>
                             <v-icon>mdi mdi-human-male-board-poll</v-icon>
