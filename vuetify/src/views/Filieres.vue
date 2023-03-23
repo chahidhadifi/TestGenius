@@ -32,16 +32,15 @@
                                     </v-col>
                                     <v-col cols="12">
                                         <v-text-field
-                                            v-model="editedItem.departementId"
+                                            v-model="editedItem.departement_id"
                                             label="Département"
                                         ></v-text-field>
                                     </v-col>
                                     <!-- <v-col cols="12">
                                         <v-select
-                                            :items="departements"
-                                            v-model="editedItem.departement_id"
                                             label="Département"
-                                            required
+                                            :items="departements"
+                                            variant="underlined"
                                         ></v-select>
                                     </v-col> -->
                                 </v-row>
@@ -115,18 +114,18 @@ import axios from "axios";
 export default {
     name: "FilieresList",
     data: () => ({
+        // departements: [],
         color: "primary",
         message: "",
         search: "",
         dialog: false,
         snackbar: false,
         filieres: [],
-        // departements: [],
         editedIndex: -1,
         editedItem: {
             id: "",
             nom: "",
-            departementId: "",
+            departement_id: "",
         },
         headers: [
             {
@@ -155,15 +154,21 @@ export default {
         },
     },
     methods: {
+        //TODO: fix select items
         // getDepartements() {
         //     var page = "http://127.0.0.1:8000/api/departements";
         //     axios.get(page).then(({ data }) => {
         //         console.log(data);
-        //         this.departements = data;
+        //         console.log(JSON.stringify(data[0].id));
+        //         for (const property in data) {
+        //             console.log(`${property}: ${data[property].id}`);
+        //             this.departements += data[property].id + ",";
+        //         }
         //     });
         // },
+        //
         getFilieres() {
-            var page = "http://127.0.0.1:8000/api/filieres";
+            var page = "http://127.0.0.1:8000/api/filieres/";
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.filieres = data;
@@ -171,19 +176,18 @@ export default {
         },
         save() {
             if (this.editedIndex > -1) {
-                // Object.assign(this.filieres[this.editedIndex], this.editedItem);
-                // var editRecords =
-                //     "http://127.0.0.1:8000/api/filieres/" + this.editedItem.id;
-                // axios.put(editRecords, this.editedItem).then(({ data }) => {
-                //     this.editItem.nom = "";
-                //     this.editItem.departementId = "";
-                //     //this.editItem = "";
-                //     this.snackbar = true;
-                //     this.message = "Le département a été modifié avec succès";
-                //     this.color = "success";
-                //     this.dialog = false;
-                //     this.getFilieres();
-                // });
+                Object.assign(this.filieres[this.editedIndex], this.editedItem);
+                var editRecords =
+                    "http://127.0.0.1:8000/api/filieres/" + this.editedItem.id;
+                axios.put(editRecords, this.editedItem).then(({ data }) => {
+                    this.editItem.nom = "";
+                    this.editItem = "";
+                    this.snackbar = true;
+                    this.message = "La filiere a été modifiée avec succès";
+                    this.color = "success";
+                    this.dialog = false;
+                    this.getFilieres();
+                });
             } else {
                 axios
                     .post(

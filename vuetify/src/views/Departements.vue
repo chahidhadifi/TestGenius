@@ -160,8 +160,6 @@ export default {
                     "http://127.0.0.1:8000/api/departements/" +
                     this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
-                    this.editItem.nom = "";
-                    this.editItem = "";
                     this.snackbar = true;
                     this.message = "Le département a été modifié avec succès";
                     this.color = "success";
