@@ -32,9 +32,9 @@
                                     </v-col>
                                     <v-col cols="12">
                                         <v-select
-                                            label="Département"
+                                            label="Professeur"
                                             :items="idProfesseurs"
-                                            v-model="editedItem.professeurs_id"
+                                            v-model="editedItem.professeur_id"
                                             variant="underlined"
                                         ></v-select>
                                     </v-col>
@@ -109,19 +109,19 @@ import axios from "axios";
 export default {
     name: "MatieresList",
     data: () => ({
-        professeurs: [],
-        idProfesseurs: [],
         color: "primary",
         message: "",
         search: "",
         dialog: false,
         snackbar: false,
+        professeurs: [],
+        idProfesseurs: [],
         matieres: [],
         editedIndex: -1,
         editedItem: {
             id: "",
             nom: "",
-            professeurs_id: "",
+            professeur_id: "",
         },
         headers: [
             {
@@ -151,7 +151,7 @@ export default {
     },
     methods: {
         getProfesseurs() {
-            var page = "http://127.0.0.1:8000/api/departements";
+            var page = "http://127.0.0.1:8000/api/professeurs/";
             axios.get(page).then(({ data }) => {
                 let counter = 0;
                 for (let i in data) {
