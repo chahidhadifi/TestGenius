@@ -30,19 +30,20 @@
                                             label="Nom"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12">
+                                    <!-- <v-col cols="12">
                                         <v-text-field
                                             v-model="editedItem.departement_id"
                                             label="Département"
                                         ></v-text-field>
-                                    </v-col>
-                                    <!-- <v-col cols="12">
+                                    </v-col> -->
+                                    <v-col cols="12">
                                         <v-select
                                             label="Département"
-                                            :items="departements"
+                                            :items="idDepartements"
+                                            v-model="editedItem.departement_id"
                                             variant="underlined"
                                         ></v-select>
-                                    </v-col> -->
+                                    </v-col>
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -114,7 +115,8 @@ import axios from "axios";
 export default {
     name: "FilieresList",
     data: () => ({
-        // departements: [],
+        departements: [],
+        idDepartements: [],
         color: "primary",
         message: "",
         search: "",
@@ -141,7 +143,7 @@ export default {
     }),
     created() {
         this.getFilieres();
-        // this.getDepartements();
+        this.getDepartements();
     },
     mounted() {
         console.log("mounted() called");
@@ -154,19 +156,17 @@ export default {
         },
     },
     methods: {
-        //TODO: fix select items
-        // getDepartements() {
-        //     var page = "http://127.0.0.1:8000/api/departements";
-        //     axios.get(page).then(({ data }) => {
-        //         console.log(data);
-        //         console.log(JSON.stringify(data[0].id));
-        //         for (const property in data) {
-        //             console.log(`${property}: ${data[property].id}`);
-        //             this.departements += data[property].id + ",";
-        //         }
-        //     });
-        // },
-        //
+        getDepartements() {
+            var page = "http://127.0.0.1:8000/api/departements";
+            axios.get(page).then(({ data }) => {
+                let counter = 0;
+                for (let i in data) {
+                    this.departements = Object.values(data);
+                    this.idDepartements.push(this.departements[counter]?.id);
+                    counter += 1;
+                }
+            });
+        },
         getFilieres() {
             var page = "http://127.0.0.1:8000/api/filieres/";
             axios.get(page).then(({ data }) => {

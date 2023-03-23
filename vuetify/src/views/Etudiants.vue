@@ -51,10 +51,12 @@
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
-                                        <v-text-field
-                                            v-model="editedItem.filiere_id"
+                                        <v-select
                                             label="Filiere"
-                                        ></v-text-field>
+                                            :items="idFilieres"
+                                            v-model="editedItem.filiere_id"
+                                            variant="underlined"
+                                        ></v-select>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -132,6 +134,8 @@ export default {
         search: "",
         dialog: false,
         snackbar: false,
+        filieres: [],
+        idFilieres: [],
         etudiants: [],
         editedIndex: -1,
         editedItem: {
@@ -159,6 +163,7 @@ export default {
     }),
     created() {
         this.getEtudiants();
+        this.getFilieres();
     },
     mounted() {
         console.log("mounted() called");
@@ -171,6 +176,17 @@ export default {
         },
     },
     methods: {
+        getFilieres() {
+            var page = "http://127.0.0.1:8000/api/filieres/";
+            axios.get(page).then(({ data }) => {
+                let counter = 0;
+                for (let i in data) {
+                    this.filieres = Object.values(data);
+                    this.idFilieres.push(this.filieres[counter]?.id);
+                    counter += 1;
+                }
+            });
+        },
         getEtudiants() {
             var page = "http://127.0.0.1:8000/api/etudiants";
             axios.get(page).then(({ data }) => {
