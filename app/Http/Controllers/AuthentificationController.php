@@ -85,9 +85,12 @@ class AuthentificationController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
+            $user = Auth::user(); // récupère l'utilisateur actuellement connecté
+            $userRole = $user->role; //récupère son role
 
             return response()->json([
                 'status' => true,
+                'role'=> $userRole,
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
