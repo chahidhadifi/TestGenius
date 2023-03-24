@@ -278,7 +278,23 @@ export default {
                 config: { headers: { "Content-Type": "multipart/form-data" } },
             })
                 .then((response) => {
-                    this.$router.push("/departement");
+                    //this.$router.push("/departement");
+                     const role = response.data.role;
+      
+                //Redirigez l'utilisateur vers la route appropriée en fonction de son rôle
+                  switch (role) {
+                        case "admin":
+                        this.$router.push("/departements");
+                        break;
+                        case "etudiant":
+                        this.$router.push("/auth");
+                        break;
+                        case "professeur":
+                        this.$router.push("/auth");
+                        break;
+                        default:
+                        console.error("Rôle d'utilisateur invalide !");
+                    }
                 })
                 .catch((error) => {
                     //TODO: notification bar
