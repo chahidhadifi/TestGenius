@@ -168,6 +168,12 @@
                                                             type="text"
                                                             required
                                                         ></v-text-field>
+                                                         <v-select
+                                                            v-model="rolereg"
+                                                            label="Select"
+                                                            :items="['etudiant','professeur']"
+                                                            variant="underlined"
+                                                          ></v-select>
                                                         <v-text-field
                                                             v-model="emailreg"
                                                             :rules="emailRules"
@@ -240,6 +246,7 @@ export default {
             snackbar: false,
             passwordShow: false,
             namereg: "",
+            rolereg:"",
             emailreg: "",
             passwordreg: "",
             email: "",
@@ -304,6 +311,7 @@ export default {
         registerUser() {
             let bodyFormData = new FormData();
             bodyFormData.set("name", this.namereg);
+            bodyFormData.set("role", this.rolereg);
             bodyFormData.set("email", this.emailreg);
             bodyFormData.set("password", this.passwordreg);
             axios({
