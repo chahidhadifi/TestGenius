@@ -1,5 +1,8 @@
 <template>
     <v-container>
+        <v-snackbar v-model="snackbar" :color="color">
+            {{ message }}
+        </v-snackbar>
         <v-row align="center" justify="center">
             <v-col cols="12" sm="10">
                 <v-card class="elevation-6 mt-10">
@@ -246,6 +249,8 @@ export default {
             props: {
                 source: String,
             },
+            color: "",
+            message: "",
             loading: false,
             snackbar: false,
             passwordShow: false,
@@ -291,7 +296,6 @@ export default {
                 .then((response) => {
                     localStorage.setItem("token", response.data.token);
                     const role = response.data.role;
-                    //Redirigez l'utilisateur vers la route appropriée en fonction de son rôle
                     switch (role) {
                         case "admin":
                             this.$router.push("/departements");
@@ -305,10 +309,11 @@ export default {
                         default:
                             console.error("Rôle d'utilisateur invalide !");
                     }
-                    this.$router.push("/home");
                 })
                 .catch((error) => {
-                    console.log("erreur");
+                    this.snackbar = true;
+                    this.message = "Erreur d'authentification";
+                    this.color = "error";
                 });
         },
         registerUser() {
@@ -342,19 +347,3 @@ export default {
     border-bottom-right-radius: 300px !important;
 }
 </style>
-
-<!-- <template>
-    <hello-world />
-</template>
-
-<script>
-import HelloWorld from "../components/HelloWorld";
-
-export default {
-    name: "Home",
-
-    components: {
-        HelloWorld,
-    },
-};
-</script> -->
