@@ -46,6 +46,21 @@ const routes = [
         name: "marieres",
         component: Matieres,
     },
+    {
+      path: "/examens",
+      name: "examens",
+      component: Examens,
+    },
+    {
+      path: "/questions",
+      name: "questions",
+      component: Questions,
+    },
+    {
+      path: "/propositions",
+      name: "propositions",
+      component: Propositions,
+    },
 ];
 
 const router = new VueRouter({
