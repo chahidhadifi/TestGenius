@@ -37,8 +37,8 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $questions = new Question([
-            'libelle' => $request->input('libelle'),
-            'idexamen' => $request->input('idexamen'),
+          'examen_id' => $request->input('examen_id'),
+          'libelle' => $request->input('libelle'),
         ]);
         $questions->save();
         return response()->json('');
