@@ -19,11 +19,11 @@ class AuthentificationController extends Controller
     public function createUser(Request $request)
     {
         try {
-            //Validated
             $validateUser = Validator::make($request->all(), 
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
+                'role' => 'required',
                 'password' => 'required'
             ]);
 
@@ -38,6 +38,7 @@ class AuthentificationController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'role' => $request->role,
                 'password' => Hash::make($request->password)
             ]);
 

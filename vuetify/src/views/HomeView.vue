@@ -33,6 +33,7 @@
                                                             prepend-inner-icon="mdi-email"
                                                             required
                                                         />
+
                                                         <v-text-field
                                                             v-model="password"
                                                             :rules="
@@ -168,12 +169,15 @@
                                                             type="text"
                                                             required
                                                         ></v-text-field>
-                                                         <v-select
+                                                        <v-select
                                                             v-model="rolereg"
                                                             label="Select"
-                                                            :items="['etudiant','professeur']"
+                                                            :items="[
+                                                                'etudiant',
+                                                                'professeur',
+                                                            ]"
                                                             variant="underlined"
-                                                          ></v-select>
+                                                        ></v-select>
                                                         <v-text-field
                                                             v-model="emailreg"
                                                             :rules="emailRules"
@@ -246,7 +250,7 @@ export default {
             snackbar: false,
             passwordShow: false,
             namereg: "",
-            rolereg:"",
+            rolereg: "",
             emailreg: "",
             passwordreg: "",
             email: "",
@@ -285,22 +289,21 @@ export default {
                 config: { headers: { "Content-Type": "multipart/form-data" } },
             })
                 .then((response) => {
-                    //this.$router.push("/departement");
-                     const role = response.data.role;
-      
-                //Redirigez l'utilisateur vers la route appropriée en fonction de son rôle
-                  switch (role) {
+                    localStorage.setItem("token", response.data.token);
+                    const role = response.data.role;
+                    //Redirigez l'utilisateur vers la route appropriée en fonction de son rôle
+                    switch (role) {
                         case "admin":
-                        this.$router.push("/departements");
-                        break;
+                            this.$router.push("/departements");
+                            break;
                         case "etudiant":
-                        this.$router.push("/auth");
-                        break;
+                            this.$router.push("/departements");
+                            break;
                         case "professeur":
-                        this.$router.push("/auth");
-                        break;
+                            this.$router.push("/professeurs");
+                            break;
                         default:
-                        console.error("Rôle d'utilisateur invalide !");
+                            console.error("Rôle d'utilisateur invalide !");
                     }
                 })
                 .catch((error) => {
