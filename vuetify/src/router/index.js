@@ -7,6 +7,9 @@ import Filieres from "../views/Filieres";
 import Professeurs from "../views/Professeurs";
 import Etudiants from "../views/Etudiants";
 import Matieres from "../views/Matieres";
+import Examens from "../views/ExamensView.vue";
+import Questions from "../views/QuestionsView.vue";
+import Propositions from "../views/PropositionsView.vue";
 
 Vue.use(VueRouter);
 
