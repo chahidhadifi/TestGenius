@@ -37,10 +37,11 @@ class ExamenController extends Controller
     public function store(Request $request)
     {
         $examens = new Examen([
+            'nom' => $request->input('nom'),
             'date' => $request->input('date'),
             'duree' => $request->input('duree'),
-            'idprofesseur' => $request->input('idprofesseur'),
-            'idmatiere' => $request->input('idmatiere'),
+            'matiere_id' => $request->input('matiere_id'),
+            'professeur_id' => $request->input('professeur_id'),
         ]);
         $examens->save();
         return response()->json('');
