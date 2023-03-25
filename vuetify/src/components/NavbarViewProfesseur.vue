@@ -46,7 +46,7 @@
                             <v-list-item-title>Propositions</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                 <!--  <v-list-item router to="/filieres">
+                    <!--  <v-list-item router to="/filieres">
                         <v-list-item-action>
                             <v-icon>mdi mdi-home-group</v-icon>
                         </v-list-item-action>
@@ -77,7 +77,7 @@
                         <v-list-item-content>
                             <v-list-item-title>Etudiants</v-list-item-title>
                         </v-list-item-content>
-                    </v-list-item>--> 
+                    </v-list-item>-->
                 </v-list>
             </v-navigation-drawer>
         </v-card>
@@ -94,6 +94,11 @@ export default {
             ],
             mini: true,
         };
+    },
+    methods: {
+        logout() {
+            localStorage.clear();
+        },
     },
 };
 </script>

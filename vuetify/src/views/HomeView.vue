@@ -305,9 +305,9 @@ export default {
                         default:
                             console.error("Rôle d'utilisateur invalide !");
                     }
+                    this.$router.push("/home");
                 })
                 .catch((error) => {
-                    //TODO: notification bar
                     console.log("erreur");
                 });
         },

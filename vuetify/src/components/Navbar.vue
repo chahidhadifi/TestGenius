@@ -63,6 +63,13 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
+                <v-list style="position: absolute; bottom: 0" nav dense>
+                    <v-list-item router to="/auth">
+                        <v-icon large @click="logout()"
+                            >mdi mdi-logout-variant</v-icon
+                        >
+                    </v-list-item>
+                </v-list>
             </v-navigation-drawer>
         </v-card>
     </nav>
@@ -78,6 +85,11 @@ export default {
             ],
             mini: true,
         };
+    },
+    methods: {
+        logout() {
+            localStorage.clear();
+        },
     },
 };
 </script>
