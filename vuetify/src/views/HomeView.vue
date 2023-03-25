@@ -245,6 +245,7 @@ export default {
             passwordShow: false,
             namereg: "",
             rolereg: "",
+            nameNavbar: "",
             emailreg: "",
             passwordreg: "",
             email: "",
@@ -284,6 +285,7 @@ export default {
             })
                 .then((response) => {
                     localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("name", response.data.name);
                     const role = response.data.role;
                     switch (role) {
                         case "admin":
@@ -298,6 +300,7 @@ export default {
                         default:
                             console.error("Rôle d'utilisateur invalide !");
                     }
+                    this.nameNavbar = response.data.name;
                 })
                 .catch((error) => {
                     this.snackbar = true;

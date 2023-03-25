@@ -4,15 +4,11 @@
             <v-navigation-drawer permanent dark app class="blue darken-3 py-0">
                 <v-list-item class="px-2">
                     <v-list-item-avatar>
-                        <v-img
-                            src="https://randomuser.me/api/portraits/men/85.jpg"
-                        ></v-img>
+                        <v-img src="@/assets/user.png"></v-img>
                     </v-list-item-avatar>
-                    <v-list-item-title>John Leider</v-list-item-title>
+                    <v-list-item-title>{{ username }}</v-list-item-title>
                 </v-list-item>
-
                 <v-divider></v-divider>
-
                 <v-list nav dense>
                     <v-list-item router to="/dashboard">
                         <v-list-item-action>
@@ -85,6 +81,11 @@ export default {
             ],
             mini: true,
         };
+    },
+    computed: {
+        username() {
+            return localStorage.getItem("name");
+        },
     },
     methods: {
         logout() {
