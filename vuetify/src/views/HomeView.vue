@@ -145,17 +145,11 @@
                                         </div>
                                     </div>
                                 </v-col>
-
                                 <v-col cols="12" md="6">
-                                    <v-card-text class="mt-12">
-                                        <h4 class="text-center">
+                                    <v-card-text class="mt-10">
+                                        <h2 class="text-center">
                                             Sign Up for an Account
-                                        </h4>
-                                        <h6 class="text-center grey--text">
-                                            Let's get you all set up so you can
-                                            start creatin your <br />
-                                            first onboarding experiance
-                                        </h6>
+                                        </h2>
                                         <v-row align="center" justify="center">
                                             <v-col cols="12" sm="8">
                                                 <v-form
@@ -174,7 +168,8 @@
                                                         ></v-text-field>
                                                         <v-select
                                                             v-model="rolereg"
-                                                            label="Select"
+                                                            prepend-inner-icon="mdi mdi-account-supervisor"
+                                                            label="Role"
                                                             :items="[
                                                                 'etudiant',
                                                                 'professeur',
