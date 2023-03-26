@@ -14,7 +14,7 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        $etudiants = Etudiant::all();
+        $etudiants = Etudiant::with("filiere")->get();
         return response()->json($etudiants);
     }
 
