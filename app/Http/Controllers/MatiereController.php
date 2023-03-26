@@ -14,7 +14,7 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        $matieres = Matiere::all();
+        $matieres = Matiere::with("professeur")->get();
         return response()->json($matieres);
     }
 
