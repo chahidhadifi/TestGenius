@@ -286,16 +286,17 @@ export default {
                 .then((response) => {
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("name", response.data.name);
+                    localStorage.setItem("role", response.data.role);
                     const role = response.data.role;
                     switch (role) {
                         case "admin":
-                            this.$router.push("/departements");
+                            this.$router.push("/");
                             break;
                         case "etudiant":
-                            this.$router.push("/departements");
+                            this.$router.push("/");
                             break;
                         case "professeur":
-                            this.$router.push("/professeurs");
+                            this.$router.push("/");
                             break;
                         default:
                             console.error("Rôle d'utilisateur invalide !");
