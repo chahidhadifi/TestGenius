@@ -39,7 +39,9 @@
                                     <v-col cols="12">
                                         <v-select
                                             label="Département"
-                                            :items="idDepartements"
+                                            :items="departements"
+                                            item-text="nom"
+                                            item-value="id"
                                             v-model="editedItem.departement_id"
                                             variant="underlined"
                                         ></v-select>
@@ -137,16 +139,17 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
-            { text: "Département", value: "departement_id" },
+            { text: "Département", value: "departement.nom" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
         this.getFilieres();
-        this.getDepartements();
+        //this.getDepartements();
     },
     mounted() {
         console.log("mounted() called");
+        this.getDepartements();
     },
     computed: {
         formTitle() {
@@ -159,12 +162,9 @@ export default {
         getDepartements() {
             var page = "http://127.0.0.1:8000/api/departements";
             axios.get(page).then(({ data }) => {
-                let counter = 0;
-                for (let i in data) {
-                    this.departements = Object.values(data);
-                    this.idDepartements.push(this.departements[counter]?.id);
-                    counter += 1;
-                }
+                console.log("departements");
+                console.log(data);
+                this.departements = data;
             });
         },
         getFilieres() {
