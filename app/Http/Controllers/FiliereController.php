@@ -14,7 +14,7 @@ class FiliereController extends Controller
      */
     public function index()
     {
-        $filieres = Filiere::all();
+        $filieres = Filiere::with("departement")->get();
         return response()->json($filieres);
     }
 
