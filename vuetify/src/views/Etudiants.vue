@@ -53,7 +53,9 @@
                                     <v-col cols="12">
                                         <v-select
                                             label="Filiere"
-                                            :items="idFilieres"
+                                            :items="filieres"
+                                            item-text="nom"
+                                            item-value="id"
                                             v-model="editedItem.filiere_id"
                                             variant="underlined"
                                         ></v-select>
@@ -157,16 +159,17 @@ export default {
             { text: "Prénom", value: "prenom" },
             { text: "Email", value: "email" },
             { text: "password", value: "password" },
-            { text: "Filiere", value: "filiere_id" },
+            { text: "Filiere", value: "filiere.nom" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
         this.getEtudiants();
-        this.getFilieres();
+        //this.getFilieres();
     },
     mounted() {
         console.log("mounted() called");
+        this.getFilieres();
     },
     computed: {
         formTitle() {
@@ -179,12 +182,9 @@ export default {
         getFilieres() {
             var page = "http://127.0.0.1:8000/api/filieres/";
             axios.get(page).then(({ data }) => {
-                let counter = 0;
-                for (let i in data) {
-                    this.filieres = Object.values(data);
-                    this.idFilieres.push(this.filieres[counter]?.id);
-                    counter += 1;
-                }
+                console.log("filieres");
+                console.log(data);
+                this.filieres= data;
             });
         },
         getEtudiants() {
