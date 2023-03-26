@@ -33,7 +33,9 @@
                                     <v-col cols="12">
                                         <v-select
                                             label="Professeur"
-                                            :items="idProfesseurs"
+                                            :items="professeurs"
+                                            item-text="nom"
+                                            item-value="id"
                                             v-model="editedItem.professeur_id"
                                             variant="underlined"
                                         ></v-select>
@@ -131,16 +133,17 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
-            { text: "Professeur", value: "professeur_id" },
+            { text: "Professeur", value: "professeur.nom" },
             { text: "Action", value: "actions" },
         ],
     }),
     created() {
         this.getMatieres();
-        this.getProfesseurs();
+       // this.getProfesseurs();
     },
     mounted() {
         console.log("mounted() called");
+        this.getProfesseurs();
     },
     computed: {
         formTitle() {
@@ -153,12 +156,9 @@ export default {
         getProfesseurs() {
             var page = "http://127.0.0.1:8000/api/professeurs/";
             axios.get(page).then(({ data }) => {
-                let counter = 0;
-                for (let i in data) {
-                    this.professeurs = Object.values(data);
-                    this.idProfesseurs.push(this.professeurs[counter]?.id);
-                    counter += 1;
-                }
+                console.log("professeurs");
+                console.log(data);
+                this.professeurs= data;
             });
         },
         getMatieres() {
