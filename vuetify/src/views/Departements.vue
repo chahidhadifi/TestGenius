@@ -144,7 +144,7 @@ export default {
     },
     methods: {
         getDepartements() {
-            var page = "http://127.0.0.1:8000/api/departements";
+            var page = process.env.VUE_APP_DEPARTEMENTS_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.departements = data;
@@ -156,10 +156,10 @@ export default {
                     this.departements[this.editedIndex],
                     this.editedItem
                 );
-                var editRecords =
-                    "http://127.0.0.1:8000/api/departements/" +
-                    this.editedItem.id;
+                var editRecords = `${process.env.VUE_APP_DEPARTEMENTS_API}/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
+                    this.editItem.nom = "";
+                    this.editItem = "";
                     this.snackbar = true;
                     this.message = "Le département a été modifié avec succès";
                     this.color = "success";
@@ -169,7 +169,7 @@ export default {
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/departements/",
+                        process.env.VUE_APP_DEPARTEMENTS_API,
                         this.editedItem
                     )
                     .then(({ data }) => {
@@ -191,7 +191,7 @@ export default {
         deleteItem(item) {
             const index = this.departements.indexOf(item);
             this.departements.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/departements/${item.id}`;
+            var url =  `${process.env.VUE_APP_DEPARTEMENTS_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "Le département a été supprimé avec succès";
