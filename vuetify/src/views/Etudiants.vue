@@ -180,7 +180,7 @@ export default {
     },
     methods: {
         getFilieres() {
-            var page = "http://127.0.0.1:8000/api/filieres/";
+            var page = process.env.VUE_APP_FILIERES_API;
             axios.get(page).then(({ data }) => {
                 console.log("filieres");
                 console.log(data);
@@ -188,7 +188,7 @@ export default {
             });
         },
         getEtudiants() {
-            var page = "http://127.0.0.1:8000/api/etudiants";
+            var page = process.env.VUE_APP_ETUDIANTS_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.etudiants = data;
@@ -200,8 +200,7 @@ export default {
                     this.etudiants[this.editedIndex],
                     this.editedItem
                 );
-                var editRecords =
-                    "http://127.0.0.1:8000/api/etudiants/" + this.editedItem.id;
+                var editRecords = `${process.env.VUE_APP_ETUDIANTS_API}/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "L'étudiant a été modifié avec succès";
@@ -212,7 +211,7 @@ export default {
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/etudiants/",
+                        process.env.VUE_APP_ETUDIANTS_API,
                         this.editedItem
                     )
                     .then(({ data }) => {
@@ -233,7 +232,7 @@ export default {
         deleteItem(item) {
             const index = this.Etudiants.indexOf(item);
             this.etudiants.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/etudiants/${item.id}`;
+            var url =  `${process.env.VUE_APP_ETUDIANTS_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "L'étudiant a été supprimé avec succès";
