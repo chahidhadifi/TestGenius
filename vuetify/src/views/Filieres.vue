@@ -160,7 +160,7 @@ export default {
     },
     methods: {
         getDepartements() {
-            var page = "http://127.0.0.1:8000/api/departements";
+            var page = process.env.VUE_APP_DEPARTEMENTS_API;
             axios.get(page).then(({ data }) => {
                 console.log("departements");
                 console.log(data);
@@ -168,7 +168,7 @@ export default {
             });
         },
         getFilieres() {
-            var page = "http://127.0.0.1:8000/api/filieres/";
+            var page = process.env.VUE_APP_FILIERES_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.filieres = data;
@@ -177,8 +177,7 @@ export default {
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(this.filieres[this.editedIndex], this.editedItem);
-                var editRecords =
-                    "http://127.0.0.1:8000/api/filieres/" + this.editedItem.id;
+                var editRecords = `${process.env.VUE_APP_FILIERES_API}/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "La filiere a été modifiée avec succès";
@@ -188,10 +187,10 @@ export default {
                 });
             } else {
                 axios
-                    .post(
-                        "http://127.0.0.1:8000/api/filieres/",
-                        this.editedItem
-                    )
+                    .post( 
+                        process.env.VUE_APP_FILIERES_API,
+                        this.editedItem 
+                     )
                     .then(({ data }) => {
                         this.snackbar = true;
                         this.message = "La filiere a été ajoutée avec succès";
@@ -210,7 +209,7 @@ export default {
         deleteItem(item) {
             const index = this.filieres.indexOf(item);
             this.filieres.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/filieres/${item.id}`;
+            var url = `${process.env.VUE_APP_FILIERES_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "La filiere a été supprimée avec succès";
