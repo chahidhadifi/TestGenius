@@ -154,7 +154,7 @@ export default {
     },
     methods: {
         getProfesseurs() {
-            var page = "http://127.0.0.1:8000/api/professeurs/";
+            var page =  process.env.VUE_APP_PROFESSEURS_API;
             axios.get(page).then(({ data }) => {
                 console.log("professeurs");
                 console.log(data);
@@ -162,7 +162,7 @@ export default {
             });
         },
         getMatieres() {
-            var page = "http://127.0.0.1:8000/api/matieres/";
+            var page =  process.env.VUE_APP_MATIERES_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.matieres = data;
@@ -171,8 +171,7 @@ export default {
         save() {
             if (this.editedIndex > -1) {
                 Object.assign(this.matieres[this.editedIndex], this.editedItem);
-                var editRecords =
-                    "http://127.0.0.1:8000/api/matieres/" + this.editedItem.id;
+                var editRecords = `${process.env.VUE_APP_MATIERES_API}/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "La matiere a été modifiée avec succès";
@@ -183,7 +182,7 @@ export default {
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/matieres/",
+                        process.env.VUE_APP_MATIERES_API,
                         this.editedItem
                     )
                     .then(({ data }) => {
@@ -204,7 +203,7 @@ export default {
         deleteItem(item) {
             const index = this.matieres.indexOf(item);
             this.matieres.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/matieres/${item.id}`;
+            var url =  `${process.env.VUE_APP_MATIERES_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "La matiere a été supprimée avec succès";
