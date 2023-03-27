@@ -146,7 +146,7 @@ export default {
     },
     methods: {
         getProfesseurs() {
-            var page = "http://127.0.0.1:8000/api/professeurs";
+            var page =  process.env.VUE_APP_PROFESSEURS_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.professeurs = data;
@@ -158,9 +158,7 @@ export default {
                     this.professeurs[this.editedIndex],
                     this.editedItem
                 );
-                var editRecords =
-                    "http://127.0.0.1:8000/api/professeurs/" +
-                    this.editedItem.id;
+                var editRecords = `${process.env.VUE_APP_PROFESSEURS_API}/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "Le professeur a été modifié avec succès";
@@ -171,7 +169,7 @@ export default {
             } else {
                 axios
                     .post(
-                        "http://127.0.0.1:8000/api/professeurs/",
+                        process.env.VUE_APP_PROFESSEURS_API,
                         this.editedItem
                     )
                     .then(({ data }) => {
@@ -194,7 +192,7 @@ export default {
         deleteItem(item) {
             const index = this.professeurs.indexOf(item);
             this.professeurs.splice(index, 1);
-            var url = `http://127.0.0.1:8000/api/professeurs/${item.id}`;
+            var url =  `${process.env.VUE_APP_PROFESSEURS_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "Le professeur a été supprimé avec succès";
