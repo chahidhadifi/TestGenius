@@ -176,7 +176,10 @@ export default {
         },
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.questions[this.editedIndex], this.editedItem);
+                Object.assign(
+                    this.questions[this.editedIndex],
+                    this.editedItem
+                );
                 var editRecords =
                     "http://127.0.0.1:8000/api/questions/" + this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {

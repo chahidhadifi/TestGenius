@@ -14,7 +14,8 @@
                             v-bind="attrs"
                             v-on="on"
                         >
-                            <v-icon>mdi mdi-plus</v-icon> Ajouter une proposition
+                            <v-icon>mdi mdi-plus</v-icon> Ajouter une
+                            proposition
                         </v-btn>
                     </template>
                     <v-card>
@@ -44,14 +45,17 @@
                                             label="Libelle"
                                         ></v-text-field>
                                     </v-col>
-                                    <v-col cols="12"> 
+                                    <v-col cols="12">
                                         <v-select
-                                          v-model="editedItem.est_correct"
-                                          label="correct ou pas"
-                                          :items="['0 (pas correct)','1 (est correct)']"
-                                          variant="underlined"
+                                            v-model="editedItem.est_correcte"
+                                            label="correcte ou pas"
+                                            :items="[
+                                                '0 (pas correcte)',
+                                                '1 (est correcte)',
+                                            ]"
+                                            variant="underlined"
                                         ></v-select>
-                                    </v-col>  
+                                    </v-col>
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -124,6 +128,7 @@ export default {
     name: "PropositionsList",
     data: () => ({
         questions: [],
+        propositions: [],
         idQuestions: [],
         color: "primary",
         message: "",
@@ -134,9 +139,9 @@ export default {
         editedIndex: -1,
         editedItem: {
             id: "",
-            question_id: "",
             libelle: "",
-            est_correct:"",
+            est_correcte: "",
+            question_id: "",
         },
         headers: [
             {
@@ -145,9 +150,9 @@ export default {
                 sortable: false,
                 value: "id",
             },
-            { text: "Question", value: "question_id" },
             { text: "Libelle", value: "libelle" },
-            { text: "Correct ou pas", value: "est_correct" },
+            { text: "Correct ou pas", value: "est_correcte" },
+            { text: "Question", value: "question_id" },
             { text: "Action", value: "actions" },
         ],
     }),
@@ -186,9 +191,13 @@ export default {
         },
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.propositions[this.editedIndex], this.editedItem);
+                Object.assign(
+                    this.propositions[this.editedIndex],
+                    this.editedItem
+                );
                 var editRecords =
-                    "http://127.0.0.1:8000/api/propositions/" + this.editedItem.id;
+                    "http://127.0.0.1:8000/api/propositions/" +
+                    this.editedItem.id;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "La proposition a été modifiée avec succès";
@@ -204,7 +213,8 @@ export default {
                     )
                     .then(({ data }) => {
                         this.snackbar = true;
-                        this.message = "La proposition a été ajoutée avec succès";
+                        this.message =
+                            "La proposition a été ajoutée avec succès";
                         this.color = "success";
                         this.dialog = false;
                         this.getPropositions();

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('propositions', function (Blueprint $table) {
             $table->id();
             $table->string('libelle')->nullable(false);
-            $table->boolean('est_correcte')->default(false);
+            $table->boolean('est_correcte');
             $table->unsignedBigInteger('question_id')->nullable(false);
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();

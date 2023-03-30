@@ -58,14 +58,14 @@
                                             variant="underlined"
                                         ></v-select>
                                     </v-col>
-                                   
+
                                     <!-- <v-col cols="12">
                                         <v-text-field
                                             v-model="editedItem.departement_id"
                                             label="Département"
                                         ></v-text-field>
                                     </v-col> -->
-                                   <!-- <v-col cols="12">
+                                    <!-- <v-col cols="12">
                                         <v-select
                                             label="Département"
                                             :items="idDepartements"
@@ -158,10 +158,10 @@ export default {
         editedItem: {
             id: "",
             nom: "",
-            date:"",
-            duree:"",
+            date: "",
+            duree: "",
             matiere_id: "",
-            professeur_id: "", 
+            professeur_id: "",
         },
         headers: [
             {
@@ -174,7 +174,7 @@ export default {
             { text: "Date", value: "date" },
             { text: "Duree", value: "duree" },
             { text: "Matière", value: "matiere_id" },
-            { text: "Professeur", value: "professeur_id" },    
+            { text: "Professeur", value: "professeur_id" },
             { text: "Action", value: "actions" },
         ],
     }),
@@ -200,7 +200,7 @@ export default {
                 let counter = 0;
                 for (let i in data) {
                     this.professeurs = Object.values(data);
-                    this.idProfesseurs.push(this.professeurs[counter]?.id);
+                    this.idProfesseurs.push(this.professeurs[counter]?.nom);
                     counter += 1;
                 }
             });
@@ -208,10 +208,11 @@ export default {
         getMatieres() {
             var page = "http://127.0.0.1:8000/api/matieres";
             axios.get(page).then(({ data }) => {
+                console.log(data);
                 let counter = 0;
                 for (let i in data) {
                     this.matieres = Object.values(data);
-                    this.idMatieres.push(this.matieres[counter]?.id);
+                    this.idMatieres.push(this.matieres[counter]?.nom);
                     counter += 1;
                 }
             });
@@ -219,7 +220,6 @@ export default {
         getExamens() {
             var page = "http://127.0.0.1:8000/api/examens/";
             axios.get(page).then(({ data }) => {
-                console.log(data);
                 this.examens = data;
             });
         },
@@ -236,11 +236,18 @@ export default {
                     this.getExamens();
                 });
             } else {
+                // this.matieres.forEach((matiere) => {
+                //     if (this.editedItem.matiere_id == matiere.nom) {
+                //         this.editedItem.matiere_id = matiere.id;
+                //     }
+                // });
+                // this.professeurs.forEach((professeur) => {
+                //     if (this.editedItem.professeur_id == professeur.nom) {
+                //         this.editedItem.professeur_id = professeur.id;
+                //     }
+                // });
                 axios
-                    .post(
-                        "http://127.0.0.1:8000/api/examens/",
-                        this.editedItem
-                    )
+                    .post("http://127.0.0.1:8000/api/examens/", this.editedItem)
                     .then(({ data }) => {
                         this.snackbar = true;
                         this.message = "L'examen a été ajoutée avec succès";

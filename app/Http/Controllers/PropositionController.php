@@ -37,9 +37,9 @@ class PropositionController extends Controller
     public function store(Request $request)
     {
         $propositions = new Proposition([
-           'question_id' => $request->input('question_id'),
            'libelle' => $request->input('libelle'),
-           'est_correct' => $request->input('est_correct'),
+           'est_correcte' => $request->input('est_correcte'),
+           'question_id' => $request->input('question_id'),
         ]);
         $propositions->save();
         return response()->json('');

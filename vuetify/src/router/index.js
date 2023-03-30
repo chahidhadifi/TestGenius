@@ -10,6 +10,7 @@ import Matieres from "../views/Matieres";
 import Examens from "../views/ExamensView.vue";
 import Questions from "../views/QuestionsView.vue";
 import Propositions from "../views/PropositionsView.vue";
+import ContenuExamen from "../views/ContenuExamen.vue";
 
 Vue.use(VueRouter);
 
@@ -90,6 +91,14 @@ const routes = [
         path: "/propositions",
         name: "propositions",
         component: Propositions,
+        meta: {
+            isAuth: true,
+        },
+    },
+    {
+        path: "/contenuexamen",
+        name: "contenuexamen",
+        component: ContenuExamen,
         meta: {
             isAuth: true,
         },

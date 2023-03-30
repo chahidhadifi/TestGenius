@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('examens', function (Blueprint $table) {
             $table->id();
+            $table->string('nom')->nullable(false);
             $table->date('date')->nullable(false);
             $table->time('duree')->nullable(false);
             $table->unsignedBigInteger('professeur_id')->nullable(false);
