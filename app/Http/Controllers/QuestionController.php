@@ -15,7 +15,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::with("examen")->get();
         return response()->json($questions);
     }
 
