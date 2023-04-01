@@ -136,7 +136,7 @@ export default {
                 sortable: false,
                 value: "id",
             },
-            { text: "Examen", value: "examen_id" },
+            { text: "Examen", value: "examen.nom" },
             { text: "Libelle", value: "libelle" },
             { text: "Action", value: "actions" },
         ],
