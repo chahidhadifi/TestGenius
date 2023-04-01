@@ -17,7 +17,7 @@ class PropositionController extends Controller
 
     public function index()
     {
-        $propositions = Proposition::all();
+        $propositions = Proposition::with("question")->get();
         return response()->json($propositions);
     }
 
