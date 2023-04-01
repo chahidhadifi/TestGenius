@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proposition;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class PropositionController extends Controller
@@ -12,6 +13,8 @@ class PropositionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $propositions = Proposition::all();
@@ -35,14 +38,28 @@ class PropositionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $propositions = new Proposition([
-           'libelle' => $request->input('libelle'),
-           'est_correcte' => $request->input('est_correcte'),
-           'question_id' => $request->input('question_id'),
-        ]);
-        $propositions->save();
+    {   
+
+        $propositions = $request->all();
+  
+            foreach($propositions as $ans) {
+                $anss = Proposition::create([
+                    'libelle' => $ans['libelle'],
+                    'est_correcte' => $ans['est_correcte'],
+                    'question_id' => $ans['question_id'],
+                ]);
+            }
+
+        // $propositions = new Proposition([
+        //    'libelle' => $request->input('libelle'),
+        //    'est_correcte' => $request->input('est_correcte'),
+        //    'question_id' => $request->input('question_id'),
+        // ]);
+
+        // $propositions->save();
+        
         return response()->json('');
+        
     }
 
     /**

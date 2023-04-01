@@ -37,3 +37,9 @@ export default {
     data: () => ({}),
 };
 </script>
+
+<style>
+* {
+    font-family: Poppins;
+}
+</style>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\Proposition;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -36,12 +37,61 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $questions = new Question([
-          'examen_id' => $request->input('examen_id'),
-          'libelle' => $request->input('libelle'),
+        //
+        // $questions = new Question([
+        //   'examen_id' => $request->input('examen_id'),
+        //   'libelle' => $request->input('libelle'),
+        // ]);
+        // $questions->save();
+
+
+        // return response()->json('');
+
+        // $propositions = $request->all();
+
+        // $question = Question::create([
+        //     'libelle' => $request->libelle,
+        //     'examen_id' => $request->examen_id
+        // ]);
+        // if($question) {
+        //     foreach($propositions as $ans) {
+        //         $anss = Proposition::create([
+        //             'libelle' => $ans['libelle'],
+        //             'est_correcte' => $ans['est_correcte'],
+        //             'question_id' => $question->id,
+        //         ]);
+        //     }
+        // }
+
+        // return response()->json('');
+        
+        $question = $request->all();
+        $question = Question::create([
+            'libelle' => $request->libelle,
+            'examen_id' => $request->examen_id
         ]);
-        $questions->save();
-        return response()->json('');
+        foreach ($request->proposition as $ans) {
+            $anss = Proposition::create([
+                            'libelle' => $ans['libelle'],
+                            'est_correcte' => $ans['est_correcte'],
+                            'question_id' => $question->id,
+                        ]);
+        }
+        return $question;
+
+        // $data = $request->all();
+        // $question = Question::create([
+        // 'libelle' => $data['libelle'],
+        // 'examen_id' => $data['examen_id'],
+        // ]);
+        // foreach ($data['propositions'] as $p) {
+        //     $question->propositions()->create([
+        //         'libelle' => $p['libelle'],
+        //         'est_correcte' => $p['est_correcte'],
+        //         'question_id' => $p['question_id']
+        //     ]);
+        // }
+        // return $question;
     }
 
     /**
@@ -93,4 +143,20 @@ class QuestionController extends Controller
         $questions->delete();
         return response()->json('');
     }
+
+    //
+    // $data = json_decode(($request->test), true);
+    //     $question = Question::create([
+    //         'libelle' => $data["libelle"],
+    //         'examen_id' => $data["examen_id"],
+    //     ]);
+    //     foreach ($data['propositions'] as $p) {
+    //         $question->propositions()->create([
+    //             'libelle' => $p->libelle,
+    //         ]);
+    //     }
+    //     // $question->propositions()->create([
+    //     //     'libelle' => $p->libelle',
+    //     // ]);
+    // //
 }

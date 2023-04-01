@@ -4,6 +4,12 @@
             <v-col cols="12" sm="6" md="5">
                 <v-sheet>
                     <v-col cols="12" sm="13">
+                        <h2 style="margin-bottom: 9px">
+                            <v-icon large color="primary">
+                                mdi mdi-note-search
+                            </v-icon>
+                            Entrez le nom d'examen
+                        </h2>
                         <v-select
                             :items="examensid"
                             label="Nom d'examen"
@@ -13,37 +19,162 @@
                         <v-btn
                             depressed
                             color="primary"
-                            style="margin-bottom: 30px"
+                            style="margin-bottom: 60px; margin-top: -10px"
                             @click="afficherExam"
                         >
+                            <v-icon style="margin-right: 5px"
+                                >mdi mdi-eye</v-icon
+                            >
                             Afficher l'examen
                         </v-btn>
-                        <v-text-field
-                            label="Question"
-                            outlined
-                            v-model="question.libelle"
-                            hide-details
-                        ></v-text-field>
                         <v-col cols="12" sm="20" class="pa-0">
                             <v-container>
                                 <v-row>
-                                    <v-col cols="12" sm="20" md="8">
+                                    <h2 style="margin-bottom: 9px">
+                                        <v-icon large color="primary">
+                                            mdi mdi-comment-question
+                                        </v-icon>
+                                        Entrez la question et les réponses
+                                    </h2>
+                                    <v-col cols="12" sm="13">
+                                        <v-sheet tile style="margin: -10px">
+                                            <v-text-field
+                                                label="Question"
+                                                v-model="question.libelle"
+                                                outlined
+                                            ></v-text-field>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        sm="20"
+                                        md="8"
+                                        style="margin-top: -30px"
+                                    >
                                         <v-sheet tile class="pa-2">
                                             <v-text-field
                                                 dense
                                                 label="Proposition"
-                                                v-model="proposition.libelle"
+                                                v-model="
+                                                    question.proposition[0]
+                                                        .libelle
+                                                "
                                             ></v-text-field>
                                         </v-sheet>
                                     </v-col>
-                                    <v-col cols="6" md="4">
+                                    <v-col
+                                        cols="6"
+                                        md="4"
+                                        style="margin-top: -30px"
+                                    >
                                         <v-sheet class="pa-2" tile>
                                             <v-select
                                                 :items="[0, 1]"
                                                 v-model="
-                                                    proposition.est_correcte
+                                                    question.proposition[0]
+                                                        .est_correcte
                                                 "
-                                                label="V/F"
+                                                label="Vrai-Faux"
+                                                dense
+                                            ></v-select>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col
+                                        cols="12"
+                                        sm="20"
+                                        md="8"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet tile class="pa-2">
+                                            <v-text-field
+                                                dense
+                                                label="Proposition"
+                                                v-model="
+                                                    question.proposition[1]
+                                                        .libelle
+                                                "
+                                            ></v-text-field>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col
+                                        cols="6"
+                                        md="4"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet class="pa-2" tile>
+                                            <v-select
+                                                :items="[0, 1]"
+                                                v-model="
+                                                    question.proposition[1]
+                                                        .est_correcte
+                                                "
+                                                label="Vrai-Faux"
+                                                dense
+                                            ></v-select>
+                                        </v-sheet> </v-col
+                                    ><v-col
+                                        cols="12"
+                                        sm="20"
+                                        md="8"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet tile class="pa-2">
+                                            <v-text-field
+                                                dense
+                                                label="Proposition"
+                                                v-model="
+                                                    question.proposition[2]
+                                                        .libelle
+                                                "
+                                            ></v-text-field>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col
+                                        cols="6"
+                                        md="4"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet class="pa-2" tile>
+                                            <v-select
+                                                :items="[0, 1]"
+                                                v-model="
+                                                    question.proposition[2]
+                                                        .est_correcte
+                                                "
+                                                label="Vrai-Faux"
+                                                dense
+                                            ></v-select>
+                                        </v-sheet> </v-col
+                                    ><v-col
+                                        cols="12"
+                                        sm="20"
+                                        md="8"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet tile class="pa-2">
+                                            <v-text-field
+                                                dense
+                                                label="Proposition"
+                                                v-model="
+                                                    question.proposition[3]
+                                                        .libelle
+                                                "
+                                            ></v-text-field>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col
+                                        cols="6"
+                                        md="4"
+                                        style="margin-top: -40px"
+                                    >
+                                        <v-sheet class="pa-2" tile>
+                                            <v-select
+                                                :items="[0, 1]"
+                                                v-model="
+                                                    question.proposition[3]
+                                                        .est_correcte
+                                                "
+                                                label="Vrai-Faux"
                                                 dense
                                             ></v-select>
                                         </v-sheet>
@@ -53,9 +184,10 @@
                             <v-btn
                                 depressed
                                 color="primary"
-                                class="ma-3"
+                                style="margin-top: -10px"
                                 @click="ajouterQuestion"
                             >
+                                <v-icon>mdi mdi-plus</v-icon>
                                 Ajouter
                             </v-btn>
                         </v-col>
@@ -64,14 +196,14 @@
             </v-col>
             <v-spacer></v-spacer>
             <v-col cols="6" md="7">
-                <v-card class="pa-2" outlined tile>
+                <v-sheet class="pa-2">
                     <!-- <v-simple-table>
                         <template v-slot:default>
                             <thead>
                                 <tr>
                                     <th class="text-left">Question</th>
                                     <th class="text-left">Proposition</th>
-                                    <th class="text-left">V/F</th>
+                                    <th class="text-left">Vrai/Faux</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,7 +233,7 @@
                         class="elevation-1"
                         show-group-by
                     ></v-data-table>
-                </v-card>
+                </v-sheet>
             </v-col>
         </v-row>
     </v-container>
@@ -113,16 +245,37 @@ export default {
     name: "ContenuExamenList",
     data: () => ({
         idexamen: "",
+        idquestion: "",
         question: {
             id: "",
             libelle: "",
             examen_id: "",
-        },
-        proposition: {
-            id: "",
-            libelle: "",
-            est_correcte: "",
-            questions_id: "",
+            proposition: [
+                {
+                    id: "",
+                    libelle: "",
+                    est_correcte: "",
+                    question_id: "",
+                },
+                {
+                    id: "",
+                    libelle: "",
+                    est_correcte: "",
+                    question_id: "",
+                },
+                {
+                    id: "",
+                    libelle: "",
+                    est_correcte: "",
+                    question_id: "",
+                },
+                {
+                    id: "",
+                    libelle: "",
+                    est_correcte: "",
+                    question_id: "",
+                },
+            ],
         },
         propositions: [],
         questions: [],
@@ -136,7 +289,7 @@ export default {
                 groupable: false,
             },
             { text: "Question", value: "question_id", align: "right" },
-            { text: "V/F", value: "est_correcte", align: "right" },
+            { text: "Vrai/Faux", value: "est_correcte", align: "right" },
         ],
     }),
     created() {
@@ -151,25 +304,6 @@ export default {
             this.getQuestions();
             this.propositions = [];
             this.getPropositions();
-        },
-        ajouterQuestion() {
-            //
-            this.question.examen_id = this.idexamen;
-            axios
-                .post("http://127.0.0.1:8000/api/questions/", this.question)
-                .then(({ data }) => {});
-            var page = "http://127.0.0.1:8000/api/questions/";
-            axios.get(page).then(({ data }) => {
-                this.proposition.questions_id = data[data.length - 1].id;
-            });
-            axios
-                .post(
-                    "http://127.0.0.1:8000/api/propositions/",
-                    this.proposition
-                )
-                .then(({ data }) => {
-                    this.afficherExam();
-                });
         },
         getQuestions() {
             var page = "http://127.0.0.1:8000/api/questions/";
@@ -200,6 +334,22 @@ export default {
                 });
             });
         },
+        ajouterQuestion() {
+            this.question.examen_id = this.idexamen;
+            this.question.proposition.forEach((prop) => {
+                prop.question_id = this.idquestion;
+            });
+            axios
+                .post("http://127.0.0.1:8000/api/questions/", this.question)
+                .then(({ data }) => {
+                    this.question.libelle = "";
+                    this.question.proposition.forEach((prop) => {
+                        prop.libelle = "";
+                        prop.est_correcte = "";
+                    });
+                    this.afficherExam();
+                });
+        },
         getExamens() {
             var page = "http://127.0.0.1:8000/api/examens/";
             axios.get(page).then(({ data }) => {
@@ -211,3 +361,9 @@ export default {
     },
 };
 </script>
+
+<style>
+* {
+    font-family: Poppins;
+}
+</style>
