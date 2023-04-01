@@ -11,10 +11,12 @@
                             Entrez le nom d'examen
                         </h2>
                         <v-select
-                            :items="examensid"
+                            :items="examens"
                             label="Nom d'examen"
                             v-model="idexamen"
                             outlined
+                            item-text="nom"
+                            item-value="id"
                         ></v-select>
                         <v-btn
                             depressed
@@ -279,7 +281,7 @@ export default {
         },
         propositions: [],
         questions: [],
-        examensid: [],
+        examens: [],
         questionsid: [],
         headers: [
             {
@@ -350,12 +352,23 @@ export default {
                     this.afficherExam();
                 });
         },
-        getExamens() {
+        /*getExamens() {
             var page = "http://127.0.0.1:8000/api/examens/";
             axios.get(page).then(({ data }) => {
                 data.forEach((examen) => {
                     this.examensid.push(examen.id);
                 });
+            });
+        },*/
+        getExamens() {
+            var page = "http://127.0.0.1:8000/api/examens";
+            axios.get(page).then(({ data }) => {
+                let counter = 0;
+                for (let i in data) {
+                    this.examens = Object.values(data);
+                    this.idExamens.push(this.examens[counter]?.id);
+                    counter += 1;
+                }
             });
         },
     },
