@@ -152,7 +152,7 @@ export default {
             },
             { text: "Libelle", value: "libelle" },
             { text: "Correct ou pas", value: "est_correcte" },
-            { text: "Question", value: "question_id" },
+            { text: "Question", value: "question.libelle" },
             { text: "Action", value: "actions" },
         ],
     }),
