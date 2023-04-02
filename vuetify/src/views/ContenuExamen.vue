@@ -330,6 +330,7 @@ export default {
                 this.questions.forEach((question) => {
                     data.forEach((proposition) => {
                         if (proposition.question_id == question.id) {
+                            proposition.question_id = question.libelle;
                             this.propositions.push(proposition);
                         }
                     });
