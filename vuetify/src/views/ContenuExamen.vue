@@ -71,7 +71,7 @@
                                     >
                                         <v-sheet class="pa-2" tile>
                                             <v-select
-                                                :items="[0, 1]"
+                                                :items="['Vrai', 'Faux']"
                                                 v-model="
                                                     question.proposition[0]
                                                         .est_correcte
@@ -105,7 +105,7 @@
                                     >
                                         <v-sheet class="pa-2" tile>
                                             <v-select
-                                                :items="[0, 1]"
+                                                :items="['Vrai', 'Faux']"
                                                 v-model="
                                                     question.proposition[1]
                                                         .est_correcte
@@ -138,7 +138,7 @@
                                     >
                                         <v-sheet class="pa-2" tile>
                                             <v-select
-                                                :items="[0, 1]"
+                                                :items="['Vrai', 'Faux']"
                                                 v-model="
                                                     question.proposition[2]
                                                         .est_correcte
@@ -171,7 +171,7 @@
                                     >
                                         <v-sheet class="pa-2" tile>
                                             <v-select
-                                                :items="[0, 1]"
+                                                :items="['Vrai', 'Faux']"
                                                 v-model="
                                                     question.proposition[3]
                                                         .est_correcte
@@ -341,6 +341,12 @@ export default {
             this.question.examen_id = this.idexamen;
             this.question.proposition.forEach((prop) => {
                 prop.question_id = this.idquestion;
+                if (prop.est_correcte == "Vrai") {
+                    prop.est_correcte = 1;
+                }
+                if (prop.est_correcte == "Faux") {
+                    prop.est_correcte = 0;
+                }
             });
             axios
                 .post("http://127.0.0.1:8000/api/questions/", this.question)
