@@ -206,6 +206,7 @@
                                     <th class="text-left">Question</th>
                                     <th class="text-left">Proposition</th>
                                     <th class="text-left">Vrai/Faux</th>
+                                    <th class="text-left">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,6 +223,14 @@
                                     <td>
                                         {{ proposition.est_correcte }}
                                     </td>
+                                    <td>
+                                        <v-icon
+                                            color="primary"
+                                            @click="deleteItem(proposition)"
+                                        >
+                                            mdi mdi-delete
+                                        </v-icon>
+                                    </td>
                                 </tr>
                             </tbody>
                         </template>
@@ -232,9 +241,19 @@
                         item-key="libelle"
                         sort-by="libelle"
                         group-by="question_id"
-                        class="elevation-1"
                         show-group-by
-                    ></v-data-table>
+                        class="elevation-1"
+                    >
+                        <template v-slot:[`item.actions`]="{ item }">
+                            <v-icon
+                                class="mr-2"
+                                @click="deleteItem(item)"
+                                color="blue darken-2"
+                            >
+                                mdi mdi-delete
+                            </v-icon>
+                        </template>
+                    </v-data-table>
                 </v-sheet>
             </v-col>
         </v-row>
@@ -292,6 +311,7 @@ export default {
             },
             { text: "Question", value: "question_id", align: "right" },
             { text: "Vrai/Faux", value: "est_correcte", align: "right" },
+            { text: "Action", value: "actions", align: "right" },
         ],
     }),
     created() {
@@ -373,10 +393,17 @@ export default {
                 let counter = 0;
                 for (let i in data) {
                     this.examens = Object.values(data);
-                    this.idExamens.push(this.examens[counter]?.id);
+                    // this.idExamens.push(this.examens[counter]?.id);
                     counter += 1;
                 }
             });
+        },
+        deleteItem(item) {
+            const index = this.propositions.indexOf(item);
+            this.propositions.splice(index, 1);
+            let url = `http://127.0.0.1:8000/api/propositions/${item.id}`;
+            axios.delete(url);
+            window.location.reload();
         },
     },
 };
