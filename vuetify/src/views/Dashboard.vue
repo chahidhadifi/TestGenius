@@ -72,7 +72,7 @@
         <v-row>
             <v-card
                 max-width="344"
-                style="width: 800px; margin-right: 10px; margin-top: 15px"
+                style="width: 800px; margin-right: 15px; margin-top: 15px"
             >
                 <v-card-title class="blue pa-4">
                     <v-icon dark size="42" class="mr-4">
@@ -98,7 +98,7 @@
             </v-card>
             <v-card
                 max-width="344"
-                style="width: 800px; margin-right: 10px; margin-top: 15px"
+                style="width: 800px; margin-right: 15px; margin-top: 15px"
             >
                 <v-card-title class="blue pa-4">
                     <v-icon dark size="42" class="mr-4">
@@ -124,7 +124,7 @@
             </v-card>
             <v-card
                 max-width="344"
-                style="width: 800px; margin-right: 10px; margin-top: 15px"
+                style="width: 800px; margin-right: 15px; margin-top: 15px"
             >
                 <v-card-title class="blue pa-4">
                     <v-icon dark size="42" class="mr-4"> mdi mdi-book </v-icon>
@@ -143,6 +143,34 @@
                     </h1>
                     <h5 style="font-size: 18px; color: black">
                         Le nombre total des examens
+                    </h5>
+                </v-card-text>
+            </v-card>
+        </v-row>
+        <v-row>
+            <v-card
+                max-width="344"
+                style="width: 800px; margin-right: 15px; margin-top: 15px"
+            >
+                <v-card-title class="blue pa-4">
+                    <v-icon dark size="42" class="mr-4">
+                        mdi mdi-comment-question
+                    </v-icon>
+                    <h2 style="color: #fff">Questions</h2>
+                </v-card-title>
+                <v-card-text>
+                    <h1
+                        class="text--primary"
+                        style="
+                            font-size: 50px;
+                            margin-top: 25px;
+                            margin-bottom: 20px;
+                        "
+                    >
+                        {{ nbrQuestions }}
+                    </h1>
+                    <h5 style="font-size: 18px; color: black">
+                        Le nombre total des questions
                     </h5>
                 </v-card-text>
             </v-card>
