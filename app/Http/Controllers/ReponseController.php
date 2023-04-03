@@ -37,9 +37,9 @@ class ReponseController extends Controller
     public function store(Request $request)
     {
         $reponses = new Reponse([
-            'idquestion' => $request->input('idquestion'),
-            'idetudiant' => $request->input('idetudiant'),
-            'idproposition' => $request->input('idproposition'),
+            'question_id' => $request->input('question_id'),
+            'etudiant_id' => $request->input('etudiant_id'),
+            'proposition_id' => $request->input('proposition_id'),
         ]);
         $reponses->save();
         return response()->json('');
