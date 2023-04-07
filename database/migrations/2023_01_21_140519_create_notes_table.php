@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('notes', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('etudiant_id');
             $table->unsignedBigInteger('examen_id');
-            $table->decimal('valeur', 5, 2);
+            $table->string('valeur');
             $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade');
             $table->foreign('examen_id')->references('id')->on('examens')->onDelete('cascade');
             $table->timestamps();
@@ -32,4 +33,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('notes');
     }
-};
+}
