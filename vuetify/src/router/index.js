@@ -1,18 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Departements from "../views/Departements.vue";
-import Dashboard from "../views/Dashboard.vue";
-import Filieres from "../views/Filieres";
-import Professeurs from "../views/Professeurs";
-import Etudiants from "../views/Etudiants";
-import Matieres from "../views/Matieres";
+import Departements from "../views/DepartementsView.vue";
+import Dashboard from "../views/DashboardView.vue";
+import Filieres from "../views/FilieresView.vue";
+import Professeurs from "../views/ProfesseursView.vue";
+import Etudiants from "../views/EtudiantsView.vue";
+import Matieres from "../views/MatieresView.vue";
 import Examens from "../views/ExamensView.vue";
 import Questions from "../views/QuestionsView.vue";
 import Propositions from "../views/PropositionsView.vue";
-import ContenuExamen from "../views/ContenuExamen.vue";
-import DebutExamen from "../views/DebutExamen.vue";
-import ResultatExamen from "../views/ResultatExamen.vue";
+import ContenuExamen from "../views/ContenuExamenView.vue";
+import Resultat from "../views/ResultatView.vue";
+import Reponse from "../views/ReponseView.vue";
+
 
 Vue.use(VueRouter);
 
@@ -106,21 +107,22 @@ const routes = [
         },
     },
     {
-        path: "/start",
-        name: "start",
-        component: DebutExamen,
+        path: "/resultats",
+        name: "resultats",
+        component: Resultat,
         meta: {
             isAuth: true,
         },
     },
     {
-        path: "/result",
-        name: "result",
-        component: ResultatExamen,
+        path: "/reponses",
+        name: "reponses",
+        component: Reponse,
         meta: {
             isAuth: true,
         },
     },
+
 ];
 
 const router = new VueRouter({
