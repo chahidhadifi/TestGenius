@@ -22,7 +22,7 @@
                     </v-list-item>
                     <v-list-item router to="/examens">
                         <v-list-item-action>
-                            <v-icon>mdi mdi-book-plus</v-icon>
+                            <v-icon>mdi mdi-note-text</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title
@@ -32,7 +32,7 @@
                     </v-list-item>
                     <v-list-item router to="/contenuexamen">
                         <v-list-item-action>
-                            <v-icon>mdi mdi-book-edit</v-icon>
+                            <v-icon>mdi mdi-note-check</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title
@@ -40,7 +40,7 @@
                             >
                         </v-list-item-content>
                     </v-list-item>
-                    <!-- <v-list-item router to="/questions">
+                    <v-list-item router to="/questions">
                         <v-list-item-action>
                             <v-icon>mdi mdi-tooltip-question</v-icon>
                         </v-list-item-action>
@@ -48,14 +48,30 @@
                             <v-list-item-title>Questions</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item router to="/propositions">
+                    <v-list-item router to="/reponses">
+                        <v-list-item-action>
+                            <v-icon>mdi mdi-tooltip-question</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Réponses</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item router to="/resultats">
+                        <v-list-item-action>
+                            <v-icon>mdi mdi-tooltip-question</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Résultat</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                  <!--  <v-list-item router to="/propositions">
                         <v-list-item-action>
                             <v-icon>mdi mdi-note-check</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Propositions</v-list-item-title>
                         </v-list-item-content>
-                    </v-list-item> -->
+                    </v-list-item>-->
 
                     <v-list style="position: absolute; bottom: 0" nav dense>
                         <v-list-item router to="/auth">
