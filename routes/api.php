@@ -32,7 +32,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//TODO: ->middleware('auth:sanctum');
 Route::apiResource('filieres',FiliereController::class);
 Route::apiResource('etudiants',EtudiantController::class);
 Route::apiResource('examens',ExamenController::class);

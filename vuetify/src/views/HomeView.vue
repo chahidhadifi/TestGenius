@@ -167,6 +167,13 @@
                                                             ]"
                                                             variant="underlined"
                                                         ></v-select>
+                                                        <v-select
+                                                            v-model="filierereg"
+                                                            prepend-inner-icon="mdi mdi-account-supervisor"
+                                                            label="Filière"
+                                                            :items="filieresreg"
+                                                            variant="underlined"
+                                                        ></v-select>
                                                         <v-text-field
                                                             v-model="emailreg"
                                                             :rules="emailRules"
@@ -261,7 +268,21 @@ export default {
                     (v && v.length >= 6) ||
                     "Password must be 6  characters or more!",
             ],
+            filierereg: "",
+            filieresreg: [],
+            filieres: [],
+            etudiant: {
+                id: "",
+                nom: "",
+                prenom: "",
+                email: "",
+                password: "",
+                filiere_id: "",
+            },
         };
+    },
+    created() {
+        this.getFilieres();
     },
     methods: {
         submitHandler() {
@@ -287,6 +308,9 @@ export default {
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("name", response.data.name);
                     localStorage.setItem("role", response.data.role);
+                    localStorage.setItem("id", response.data.id);
+                    let arr = [];
+                    localStorage.setItem("passedExam", JSON.stringify(arr));
                     const role = response.data.role;
                     switch (role) {
                         case "admin":
@@ -327,6 +351,30 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
+            //ajouter etudiant
+            if (this.rolereg == "etudiant") {
+                this.etudiant.nom = this.namereg;
+                this.etudiant.prenom = "-";
+                this.etudiant.email = this.emailreg;
+                this.etudiant.password = this.passwordreg;
+                this.filieres.forEach((filiere) => {
+                    if (this.filierereg == filiere.nom) {
+                        this.etudiant.filiere_id = filiere.id;
+                    }
+                });
+                axios
+                    .post(process.env.VUE_APP_ETUDIANTS_API, this.etudiant)
+                    .then(({ data }) => {});
+            }
+        },
+        getFilieres() {
+            var page = process.env.VUE_APP_FILIERES_API;
+            axios.get(page).then(({ data }) => {
+                this.filieres = data;
+                data.forEach((filiere) => {
+                    this.filieresreg.push(filiere.nom);
+                });
+            });
         },
     },
 };

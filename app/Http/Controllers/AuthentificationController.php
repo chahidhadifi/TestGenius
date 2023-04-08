@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Etudiant;
 
 class AuthentificationController extends Controller
 {
@@ -89,11 +90,13 @@ class AuthentificationController extends Controller
             $user = Auth::user(); // récupère l'utilisateur actuellement connecté
             $userRole = $user->role; //récupère son role
             $userName = $user->name;
+            $userId = $user->id;
 
             return response()->json([
                 'status' => true,
                 'name' => $userName,
                 'role'=> $userRole,
+                'id' => $userId,
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);

@@ -11,8 +11,9 @@ import Examens from "../views/ExamensView.vue";
 import Questions from "../views/QuestionsView.vue";
 import Propositions from "../views/PropositionsView.vue";
 import ContenuExamen from "../views/ContenuExamen.vue";
-import DebutExamen from "../views/DebutExamen.vue";
 import ResultatExamen from "../views/ResultatExamen.vue";
+import DebutExamen from "../views/DebutExamen.vue";
+import DebutExamenSpec from "../views/DebutExamenSpec.vue";
 
 Vue.use(VueRouter);
 
@@ -109,6 +110,14 @@ const routes = [
         path: "/start",
         name: "start",
         component: DebutExamen,
+        meta: {
+            isAuth: true,
+        },
+    },
+    {
+        path: "/start/:id",
+        name: "startexam",
+        component: DebutExamenSpec,
         meta: {
             isAuth: true,
         },

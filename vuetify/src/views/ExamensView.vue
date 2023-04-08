@@ -31,15 +31,59 @@
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
-                                        <v-text-field
+                                        <!-- <v-text-field
                                             v-model="editedItem.date"
                                             label="Date"
-                                        ></v-text-field>
+                                        ></v-text-field> -->
+                                        <v-menu
+                                            ref="menu"
+                                            v-model="menu"
+                                            :close-on-content-click="false"
+                                            :return-value.sync="date"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="auto"
+                                        >
+                                            <template
+                                                v-slot:activator="{ on, attrs }"
+                                            >
+                                                <v-text-field
+                                                    v-model="editedItem.date"
+                                                    label="Date"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                                v-model="editedItem.date"
+                                                no-title
+                                                scrollable
+                                            >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="menu = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="
+                                                        $refs.menu.save(date)
+                                                    "
+                                                >
+                                                    OK
+                                                </v-btn>
+                                            </v-date-picker>
+                                        </v-menu>
                                     </v-col>
                                     <v-col cols="12">
                                         <v-text-field
                                             v-model="editedItem.duree"
-                                            label="Duree"
+                                            label="Duree (HH:MM)"
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
@@ -121,14 +165,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -236,16 +280,16 @@ export default {
                     this.getExamens();
                 });
             } else {
-                // this.matieres.forEach((matiere) => {
-                //     if (this.editedItem.matiere_id == matiere.nom) {
-                //         this.editedItem.matiere_id = matiere.id;
-                //     }
-                // });
-                // this.professeurs.forEach((professeur) => {
-                //     if (this.editedItem.professeur_id == professeur.nom) {
-                //         this.editedItem.professeur_id = professeur.id;
-                //     }
-                // });
+                this.matieres.forEach((matiere) => {
+                    if (this.editedItem.matiere_id == matiere.nom) {
+                        this.editedItem.matiere_id = matiere.id;
+                    }
+                });
+                this.professeurs.forEach((professeur) => {
+                    if (this.editedItem.professeur_id == professeur.nom) {
+                        this.editedItem.professeur_id = professeur.id;
+                    }
+                });
                 axios
                     .post("http://127.0.0.1:8000/api/examens/", this.editedItem)
                     .then(({ data }) => {
