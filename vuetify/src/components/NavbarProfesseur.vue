@@ -56,12 +56,12 @@
                             <v-list-item-title>Réponses</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item router to="/resultats">
+                    <v-list-item router to="/notes">
                         <v-list-item-action>
                             <v-icon>mdi mdi-tooltip-question</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>Résultat</v-list-item-title>
+                            <v-list-item-title>Notes</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                   <!--  <v-list-item router to="/propositions">
