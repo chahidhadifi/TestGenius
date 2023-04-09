@@ -141,6 +141,7 @@ export default {
         idetudiant: "",
         resExam: "",
         resNote: "",
+        email: "",
         resDateExam: "",
         resDurExam: "",
         infoExam: false,
@@ -148,6 +149,7 @@ export default {
         notPassed: false,
         examens: [],
         examensRes: [],
+        etudiant: [],
         notes: [],
     }),
     watch: {
@@ -160,7 +162,8 @@ export default {
     },
     created() {
         this.getExamens();
-        this.idstudent = localStorage.getItem("id");
+        this.getEtudiants();
+        this.email = localStorage.getItem("email");
     },
     mounted() {
         console.log("mounted() called");
@@ -177,6 +180,17 @@ export default {
                 }
             });
         },
+        getEtudiants() {
+            let page = process.env.VUE_APP_ETUDIANTS_API;
+            axios.get(page).then(({ data }) => {
+                this.etudiants = data;
+                this.etudiants.forEach((etudiant) => {
+                    if (etudiant.email == this.email) {
+                        this.idetudiant = etudiant.id;
+                    }
+                });
+            });
+        },
         getNotes() {
             let page = "http://127.0.0.1:8000/api/notes";
             axios.get(page).then(({ data }) => {
@@ -185,7 +199,7 @@ export default {
                 this.resNote = "";
                 this.notes.forEach((note) => {
                     if (
-                        note.etudiant_id == this.idstudent &&
+                        note.etudiant_id == this.idetudiant &&
                         note.examen_id == this.idexamen
                     ) {
                         this.resNote = note.valeur;

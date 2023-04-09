@@ -91,12 +91,14 @@ class AuthentificationController extends Controller
             $userRole = $user->role; //récupère son role
             $userName = $user->name;
             $userId = $user->id;
+            $userEmail = $user->email;
 
             return response()->json([
                 'status' => true,
                 'name' => $userName,
                 'role'=> $userRole,
                 'id' => $userId,
+                'email' => $userEmail,
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);

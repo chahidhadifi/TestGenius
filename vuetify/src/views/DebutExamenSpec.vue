@@ -26,8 +26,7 @@
                     <v-radio
                         :label="`${this.propositions[this.b].libelle}`"
                         :value="`${this.propositions[this.b].id}`"
-                        >sfdsdf</v-radio
-                    >
+                    ></v-radio>
                     <v-radio
                         :label="`${this.propositions[this.c].libelle}`"
                         :value="`${this.propositions[this.c].id}`"
@@ -51,6 +50,7 @@ export default {
             time: "00:00:00",
             id: this.$route.params.id,
             dureeExam: "",
+            email: "",
             a: 0,
             b: 1,
             c: 2,
@@ -62,10 +62,12 @@ export default {
                 proposition_id: "",
             },
             propositions: [],
+            etudiants: [],
             selected: [],
         };
     },
     created() {
+        this.getEtudiants();
         this.countdown();
         this.getPropositions();
     },
@@ -83,10 +85,23 @@ export default {
                 });
             });
         },
+        getEtudiants() {
+            let page = process.env.VUE_APP_ETUDIANTS_API;
+            axios.get(page).then(({ data }) => {
+                console.log(data);
+                this.etudiants = data;
+            });
+        },
         suivant() {
             this.reponse.proposition_id = this.radios;
             this.reponse.question_id = this.propositions[this.a].question.id;
-            this.reponse.etudiant_id = localStorage.getItem("id");
+            // this.reponse.etudiant_id = localStorage.getItem("id");
+            this.email = localStorage.getItem("email");
+            this.etudiants.forEach((etudiant) => {
+                if (etudiant.email == this.email) {
+                    this.reponse.etudiant_id = etudiant.id;
+                }
+            });
             axios
                 .post("http://127.0.0.1:8000/api/reponses/", this.reponse)
                 .then(({ data }) => {

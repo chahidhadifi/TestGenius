@@ -129,7 +129,6 @@ const routes = [
         name: "resultat",
         component: ResultatExamen,
     },
-    
     {
         path: "/reponses",
         name: "reponses",
@@ -145,6 +144,7 @@ const routes = [
         meta: {
             isAuth: true,
         },
+    },
 ];
 
 const router = new VueRouter({

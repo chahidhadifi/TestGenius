@@ -87,12 +87,6 @@
                                             <h3 class="text-center">
                                                 Don't Have an Account Yet?
                                             </h3>
-                                            <!-- <h6 class="text-center">
-                                                Let's get you all set up so you
-                                                can start creating your your
-                                                first<br />
-                                                onboarding experience
-                                            </h6> -->
                                         </v-card-text>
                                         <div class="text-center">
                                             <v-btn
@@ -169,14 +163,13 @@
                                                         ></v-select>
                                                         <v-select
                                                             v-model="filierereg"
-                                                            prepend-inner-icon="mdi mdi-account-supervisor"
+                                                            prepend-inner-icon="mdi mdi-home"
                                                             label="Filière"
                                                             :items="filieresreg"
                                                             variant="underlined"
                                                         ></v-select>
                                                         <v-text-field
                                                             v-model="emailreg"
-                                                            :rules="emailRules"
                                                             type="email"
                                                             label="Email"
                                                             prepend-inner-icon="mdi-email"
@@ -185,9 +178,6 @@
                                                         <v-text-field
                                                             v-model="
                                                                 passwordreg
-                                                            "
-                                                            :rules="
-                                                                passwordRules
                                                             "
                                                             :type="
                                                                 passwordShow
@@ -309,6 +299,7 @@ export default {
                     localStorage.setItem("name", response.data.name);
                     localStorage.setItem("role", response.data.role);
                     localStorage.setItem("id", response.data.id);
+                    localStorage.setItem("email", response.data.email);
                     let arr = [];
                     localStorage.setItem("passedExam", JSON.stringify(arr));
                     const role = response.data.role;
@@ -345,13 +336,10 @@ export default {
                 data: bodyFormData,
                 config: { headers: { "Content-Type": "multipart/form-data" } },
             })
-                .then((response) => {
-                    window.location.reload();
-                })
+                .then((response) => {})
                 .catch((error) => {
                     console.log(error);
                 });
-            //ajouter etudiant
             if (this.rolereg == "etudiant") {
                 this.etudiant.nom = this.namereg;
                 this.etudiant.prenom = "-";
@@ -363,9 +351,17 @@ export default {
                     }
                 });
                 axios
-                    .post(process.env.VUE_APP_ETUDIANTS_API, this.etudiant)
+                    .post("http://127.0.0.1:8000/api/etudiants/", this.etudiant)
                     .then(({ data }) => {});
             }
+            this.snackbar = true;
+            this.message = "Votre compte a été créé avec succès";
+            this.color = "success";
+            this.namereg = "";
+            this.rolereg = "";
+            this.filierereg = "";
+            this.emailreg = "";
+            this.passwordreg = "";
         },
         getFilieres() {
             var page = process.env.VUE_APP_FILIERES_API;

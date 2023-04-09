@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->unsignedBigInteger('filiere_id');
             $table->foreign('filiere_id')
