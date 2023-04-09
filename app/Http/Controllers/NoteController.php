@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Reponse;
+use App\Models\Proposition;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -14,7 +16,7 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::all();
+        $notes = Note::with('examen','etudiant')->get();
         return response()->json($notes);
     }
 
@@ -37,11 +39,14 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $notes = new Note([
-            'idexamen' => $request->input('idexamen'),
-            'idetudiant' => $request->input('idetudiant'),
+            'etudiant_id' => $request->input('etudiant_id'),
+            'examen_id' => $request->input('examen_id'),
+            'valeur' => $request->input('valeur'),
         ]);
         $notes->save();
         return response()->json('');
+
+
     }
 
     /**

@@ -110,19 +110,13 @@ export default {
         },
         countdown() {
             let dureeExam = localStorage.getItem("duree");
-
             let timeSplit = dureeExam.split(":");
             let minutes = +timeSplit[0] * 60 + +timeSplit[1];
-
             const time = this.addMinutes(new Date(), minutes);
-
-            // const endTime = new Date("2023-04-03T23:00:00").getTime();
             const endTime = new Date(time).getTime();
-
             const timer = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = endTime - now;
-
                 const hours = Math.floor(
                     (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
                 );
@@ -130,7 +124,6 @@ export default {
                     (distance % (1000 * 60 * 60)) / (1000 * 60)
                 );
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
                 this.time = `${hours.toString().padStart(2, "0")}:${minutes
                     .toString()
                     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;

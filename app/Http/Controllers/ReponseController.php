@@ -14,7 +14,7 @@ class ReponseController extends Controller
      */
     public function index()
     {
-        $reponses = Reponse::all();
+        $reponses = Reponse::with('question','proposition','etudiant')->get();
         return response()->json($reponses);
     }
 

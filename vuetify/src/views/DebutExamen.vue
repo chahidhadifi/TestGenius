@@ -90,7 +90,7 @@
                         style="text-decoration: none; color: inherit"
                         :to="{
                             params: { id: examen.id },
-                            name: 'startexam',
+                            name: 'debutexamenspec',
                         }"
                     >
                         <v-btn

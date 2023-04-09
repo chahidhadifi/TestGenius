@@ -18,7 +18,7 @@
                             <v-list-item-title>Dashboard</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item router to="/start">
+                    <v-list-item router to="/debut">
                         <v-list-item-action>
                             <v-icon>mdi mdi-book-clock</v-icon>
                         </v-list-item-action>
@@ -26,7 +26,7 @@
                             <v-list-item-title>Examens</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item router to="/result">
+                    <v-list-item router to="/resultat">
                         <v-list-item-action>
                             <v-icon>mdi mdi-school</v-icon>
                         </v-list-item-action>
