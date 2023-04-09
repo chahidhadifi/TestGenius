@@ -199,6 +199,7 @@ export default {
         snackbar: false,
         examens: [],
         editedIndex: -1,
+        matieres: [],
         editedItem: {
             id: "",
             nom: "",
@@ -217,8 +218,8 @@ export default {
             { text: "Nom", value: "nom" },
             { text: "Date", value: "date" },
             { text: "Duree", value: "duree" },
-            { text: "Matière", value: "matiere_id" },
-            { text: "Professeur", value: "professeur_id" },
+            { text: "Matière", value: "matiere.nom" },
+            { text: "Professeur", value: "professeur.nom" },
             { text: "Action", value: "actions" },
         ],
     }),
@@ -253,6 +254,7 @@ export default {
             var page = "http://127.0.0.1:8000/api/matieres";
             axios.get(page).then(({ data }) => {
                 console.log(data);
+                this.matieres = data;
                 let counter = 0;
                 for (let i in data) {
                     this.matieres = Object.values(data);

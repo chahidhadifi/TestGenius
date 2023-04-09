@@ -40,14 +40,6 @@
                             >
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item router to="/questions">
-                        <v-list-item-action>
-                            <v-icon>mdi mdi-tooltip-question</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Questions</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
                     <v-list-item router to="/reponses">
                         <v-list-item-action>
                             <v-icon>mdi mdi-tooltip-question</v-icon>
@@ -64,15 +56,6 @@
                             <v-list-item-title>Notes</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                  <!--  <v-list-item router to="/propositions">
-                        <v-list-item-action>
-                            <v-icon>mdi mdi-note-check</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Propositions</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>-->
-
                     <v-list style="position: absolute; bottom: 0" nav dense>
                         <v-list-item router to="/auth">
                             <v-icon large @click="logout()"

@@ -14,7 +14,8 @@ class ExamenController extends Controller
      */
     public function index()
     {
-        $examens = Examen::all();
+        // $examens = Examen::all();
+        $examens = Examen::with("matiere", "professeur")->get();
         return response()->json($examens);
     }
 

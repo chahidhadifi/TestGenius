@@ -6,17 +6,7 @@
         <v-row>
             <v-col>
                 <v-dialog v-model="dialog" max-width="500px">
-                    <template v-slot:activator="{ on, attrs }">
-                        <!--<v-btn
-                            color="primary"
-                            dark
-                            class="mb-2"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            <v-icon>mdi mdi-plus</v-icon> Ajouter une note
-                       </v-btn>-->
-                    </template>
+                    <template v-slot:activator="{ on, attrs }"> </template>
                     <v-card>
                         <v-card-title>
                             <span class="headline">{{ formTitle }}</span>
@@ -30,12 +20,6 @@
                                             label="Nom"
                                         ></v-text-field>
                                     </v-col>
-                                    <!-- <v-col cols="12">
-                                        <v-text-field
-                                            v-model="editedItem.departement_id"
-                                            label="Département"
-                                        ></v-text-field>
-                                    </v-col> -->
                                 </v-row>
                             </v-container>
                         </v-card-text>
@@ -67,7 +51,7 @@
 
         <v-row>
             <v-col cols="12">
-                <v-data-table
+                <!-- <v-data-table
                     :headers="headers"
                     :items="reponses"
                     :search="search"
@@ -92,6 +76,25 @@
                             class="mr-2"
                             @click="deleteItem(item)"
                             color="red darken-2"
+                        >
+                            mdi mdi-delete
+                        </v-icon>
+                    </template>
+                </v-data-table> -->
+                <v-data-table
+                    :headers="headers"
+                    :items="reponses"
+                    item-key="libelle"
+                    sort-by="libelle"
+                    group-by="etudiant.nom"
+                    :search="search"
+                    class="elevation-1"
+                >
+                    <template v-slot:[`item.actions`]="{ item }">
+                        <v-icon
+                            class="mr-2"
+                            @click="deleteItem(item)"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -153,14 +156,14 @@ export default {
         },
     },*/
     methods: {
-        getReponses(){
+        getReponses() {
             var page = "http://127.0.0.1:8000/api/reponses/";
-            axios.get(page).then(({data}) => {
+            axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.reponses = data;
             });
         },
-       getEtudiants() {
+        getEtudiants() {
             var page = "http://127.0.0.1:8000/api/etudiants/";
             axios.get(page).then(({ data }) => {
                 console.log(data);

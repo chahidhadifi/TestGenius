@@ -241,7 +241,6 @@
                         item-key="libelle"
                         sort-by="libelle"
                         group-by="question_id"
-                        show-group-by
                         class="elevation-1"
                     >
                         <template v-slot:[`item.actions`]="{ item }">
