@@ -25,20 +25,20 @@
                             <v-container>
                                 <v-row>
                                     <v-select
-                                            label="Examen"
-                                            :items="examens"
-                                            item-text="nom"
-                                            item-value="id"
-                                            v-model="editedItem.examen_id"
-                                            variant="underlined"
+                                        label="Examen"
+                                        :items="examens"
+                                        item-text="nom"
+                                        item-value="id"
+                                        v-model="editedItem.examen_id"
+                                        variant="underlined"
                                     ></v-select>
                                     <v-select
-                                            label="Etudiant"
-                                            :items="etudiants"
-                                            item-text="nom"
-                                            item-value="id"
-                                            v-model="editedItem.etudiant_id"
-                                            variant="underlined"
+                                        label="Etudiant"
+                                        :items="etudiants"
+                                        item-text="nom"
+                                        item-value="id"
+                                        v-model="editedItem.etudiant_id"
+                                        variant="underlined"
                                     ></v-select>
                                     <v-col cols="12">
                                         <v-text-field
@@ -100,14 +100,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -135,7 +135,7 @@ export default {
         notes: [],
         editedIndex: -1,
         editedItem: {
-            id:"",
+            id: "",
             examen_id: "",
             etudiant_id: "",
             valeur: "",
@@ -160,18 +160,17 @@ export default {
     },
     mounted() {
         console.log("mounted() called");
-      
     },
     computed: {
         formTitle() {
             return this.editedIndex === -1
-                ? "Ajouter un département"
-                : "Modifier un département";
+                ? "Donner une note"
+                : "Modifier une note";
         },
     },
     methods: {
         getExamens() {
-            var page = "http://127.0.0.1:8000/api/examens";
+            let page = "http://127.0.0.1:8000/api/examens";
             axios.get(page).then(({ data }) => {
                 let counter = 0;
                 for (let i in data) {
@@ -182,14 +181,14 @@ export default {
             });
         },
         getNotes() {
-            var page = "http://127.0.0.1:8000/api/notes/";
+            let page = "http://127.0.0.1:8000/api/notes/";
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.notes = data;
             });
         },
         getEtudiants() {
-            var page = process.env.VUE_APP_ETUDIANTS_API;
+            let page = "http://127.0.0.1:8000/api/etudiants/";
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.etudiants = data;
@@ -197,11 +196,8 @@ export default {
         },
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(
-                    this.notes[this.editedIndex],
-                    this.editedItem
-                );
-                var editRecords = `${process.env.VUE_APP_NOTES_API}/${this.editedItem.id}`;
+                Object.assign(this.notes[this.editedIndex], this.editedItem);
+                let editRecords = `http://127.0.0.1:8000/api/notes/${this.editedItem.id}`;
                 axios.put(editRecords, this.editedItem).then(({ data }) => {
                     this.snackbar = true;
                     this.message = "La note a été modifié avec succès";
@@ -211,14 +207,10 @@ export default {
                 });
             } else {
                 axios
-                    .post(
-                        process.env.VUE_APP_NOTES_API,
-                        this.editedItem
-                    )
+                    .post("http://127.0.0.1:8000/api/notes/", this.editedItem)
                     .then(({ data }) => {
                         this.snackbar = true;
-                        this.message =
-                            "La note a été ajouté avec succès";
+                        this.message = "La note a été ajouté avec succès";
                         this.color = "success";
                         this.dialog = false;
                         this.getNotes();
@@ -234,7 +226,7 @@ export default {
         deleteItem(item) {
             const index = this.notes.indexOf(item);
             this.notes.splice(index, 1);
-            var url =  `${process.env.VUE_APP_NOTES_API}/${item.id}`;
+            var url = `http://127.0.0.1:8000/api/notes/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "La note a été supprimé avec succès";
