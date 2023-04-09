@@ -83,13 +83,6 @@ export default {
                 });
             });
         },
-        // toMinutes(hms) {
-        //     // let hms = "01:30:00";
-        //     let timeSplit = hms.split(":");
-        //     let minutes = +timeSplit[0] * 60 + +timeSplit[1];
-        //     // let minutes = timeSplit[0] * 60 + timeSplit[1];
-        //     return minutes;
-        // },
         suivant() {
             this.reponse.proposition_id = this.radios;
             this.reponse.question_id = this.propositions[this.a].question.id;
