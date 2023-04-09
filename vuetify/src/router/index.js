@@ -14,6 +14,8 @@ import ContenuExamen from "../views/ContenuExamen.vue";
 import ResultatExamen from "../views/ResultatExamen.vue";
 import DebutExamen from "../views/DebutExamen.vue";
 import DebutExamenSpec from "../views/DebutExamenSpec.vue";
+import Reponses from "../views/ReponsesView.vue";
+import Notes from "../views/NotesView.vue";
 
 Vue.use(VueRouter);
 
@@ -127,6 +129,22 @@ const routes = [
         name: "resultat",
         component: ResultatExamen,
     },
+    
+    {
+        path: "/reponses",
+        name: "reponses",
+        component: Reponses,
+        meta: {
+            isAuth: true,
+        },
+    },
+    {
+        path: "/notes",
+        name: "notes",
+        component: Notes,
+        meta: {
+            isAuth: true,
+        },
 ];
 
 const router = new VueRouter({
