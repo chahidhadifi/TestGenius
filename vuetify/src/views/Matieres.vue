@@ -88,14 +88,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -139,7 +139,7 @@ export default {
     }),
     created() {
         this.getMatieres();
-       // this.getProfesseurs();
+        // this.getProfesseurs();
     },
     mounted() {
         console.log("mounted() called");
@@ -154,15 +154,15 @@ export default {
     },
     methods: {
         getProfesseurs() {
-            var page =  process.env.VUE_APP_PROFESSEURS_API;
+            var page = process.env.VUE_APP_PROFESSEURS_API;
             axios.get(page).then(({ data }) => {
                 console.log("professeurs");
                 console.log(data);
-                this.professeurs= data;
+                this.professeurs = data;
             });
         },
         getMatieres() {
-            var page =  process.env.VUE_APP_MATIERES_API;
+            var page = process.env.VUE_APP_MATIERES_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.matieres = data;
@@ -181,10 +181,7 @@ export default {
                 });
             } else {
                 axios
-                    .post(
-                        process.env.VUE_APP_MATIERES_API,
-                        this.editedItem
-                    )
+                    .post(process.env.VUE_APP_MATIERES_API, this.editedItem)
                     .then(({ data }) => {
                         this.snackbar = true;
                         this.message = "La matiere a été ajoutée avec succès";
@@ -203,7 +200,7 @@ export default {
         deleteItem(item) {
             const index = this.matieres.indexOf(item);
             this.matieres.splice(index, 1);
-            var url =  `${process.env.VUE_APP_MATIERES_API}/${item.id}`;
+            var url = `${process.env.VUE_APP_MATIERES_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "La matiere a été supprimée avec succès";

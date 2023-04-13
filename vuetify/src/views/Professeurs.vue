@@ -84,14 +84,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -146,7 +146,7 @@ export default {
     },
     methods: {
         getProfesseurs() {
-            var page =  process.env.VUE_APP_PROFESSEURS_API;
+            var page = process.env.VUE_APP_PROFESSEURS_API;
             axios.get(page).then(({ data }) => {
                 console.log(data);
                 this.professeurs = data;
@@ -168,10 +168,7 @@ export default {
                 });
             } else {
                 axios
-                    .post(
-                        process.env.VUE_APP_PROFESSEURS_API,
-                        this.editedItem
-                    )
+                    .post(process.env.VUE_APP_PROFESSEURS_API, this.editedItem)
                     .then(({ data }) => {
                         console.log("add record");
                         console.log(data);
@@ -192,7 +189,7 @@ export default {
         deleteItem(item) {
             const index = this.professeurs.indexOf(item);
             this.professeurs.splice(index, 1);
-            var url =  `${process.env.VUE_APP_PROFESSEURS_API}/${item.id}`;
+            var url = `${process.env.VUE_APP_PROFESSEURS_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "Le professeur a été supprimé avec succès";

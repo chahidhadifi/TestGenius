@@ -108,14 +108,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -156,7 +156,7 @@ export default {
                 value: "id",
             },
             { text: "Nom", value: "nom" },
-            { text: "Prénom", value: "prenom" },
+            // { text: "Prénom", value: "prenom" },
             { text: "Email", value: "email" },
             { text: "password", value: "password" },
             { text: "Filiere", value: "filiere.nom" },
@@ -184,7 +184,7 @@ export default {
             axios.get(page).then(({ data }) => {
                 console.log("filieres");
                 console.log(data);
-                this.filieres= data;
+                this.filieres = data;
             });
         },
         getEtudiants() {
@@ -210,10 +210,7 @@ export default {
                 });
             } else {
                 axios
-                    .post(
-                        process.env.VUE_APP_ETUDIANTS_API,
-                        this.editedItem
-                    )
+                    .post(process.env.VUE_APP_ETUDIANTS_API, this.editedItem)
                     .then(({ data }) => {
                         this.snackbar = true;
                         this.message = "L'étudiant a été ajouté avec succès";
@@ -225,14 +222,14 @@ export default {
             this.dialog = false;
         },
         editItem(item) {
-            this.editedIndex = this.Etudiants.indexOf(item);
+            this.editedIndex = this.etudiants.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
         deleteItem(item) {
-            const index = this.Etudiants.indexOf(item);
+            const index = this.etudiants.indexOf(item);
             this.etudiants.splice(index, 1);
-            var url =  `${process.env.VUE_APP_ETUDIANTS_API}/${item.id}`;
+            var url = `${process.env.VUE_APP_ETUDIANTS_API}/${item.id}`;
             axios.delete(url);
             this.snackbar = true;
             this.message = "L'étudiant a été supprimé avec succès";

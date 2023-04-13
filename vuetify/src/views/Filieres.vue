@@ -94,14 +94,14 @@
                         <v-icon
                             class="mr-2"
                             @click="editItem(item)"
-                            color="green darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-pencil-box
                         </v-icon>
                         <v-icon
                             class="mr-2"
                             @click="deleteItem(item)"
-                            color="red darken-2"
+                            color="blue darken-2"
                         >
                             mdi mdi-delete
                         </v-icon>
@@ -187,10 +187,7 @@ export default {
                 });
             } else {
                 axios
-                    .post( 
-                        process.env.VUE_APP_FILIERES_API,
-                        this.editedItem 
-                     )
+                    .post(process.env.VUE_APP_FILIERES_API, this.editedItem)
                     .then(({ data }) => {
                         this.snackbar = true;
                         this.message = "La filiere a été ajoutée avec succès";
