@@ -111,6 +111,17 @@ export default {
             this.b += 4;
             this.c += 4;
             this.d += 4;
+            console.log(
+                this.a,
+                this.b,
+                this.c,
+                this.d,
+                this.propositions.length - 1,
+                this.propositions.length + 1
+            );
+            if (this.a == this.propositions.length) {
+                this.$router.push("/debut");
+            }
         },
         addMinutes(date, minutes) {
             date.setMinutes(date.getMinutes() + minutes);
@@ -139,7 +150,7 @@ export default {
                 if (distance < 0) {
                     clearInterval(timer);
                     this.time = "00:00:00";
-                    this.$router.push("/start");
+                    this.$router.push("/debut");
                 }
             }, 1000);
         },

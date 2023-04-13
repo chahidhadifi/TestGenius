@@ -132,7 +132,7 @@ export default {
     },
     methods: {
         getExamens() {
-            var page = "http://127.0.0.1:8000/api/examens/";
+            const page = "http://127.0.0.1:8000/api/examens/";
             axios.get(page).then(({ data }) => {
                 this.examens = data;
                 this.examens.forEach((examen) => {
@@ -151,13 +151,13 @@ export default {
         },
 
         getProfesseurs() {
-            var page = process.env.VUE_APP_PROFESSEURS_API;
+            const page = "http://127.0.0.1:8000/api/professeurs/";
             axios.get(page).then(({ data }) => {
                 this.professeurs = data;
             });
         },
         getMatieres() {
-            var page = process.env.VUE_APP_MATIERES_API;
+            const page = "http://127.0.0.1:8000/api/matieres/";
             axios.get(page).then(({ data }) => {
                 this.matieres = data;
             });
@@ -168,7 +168,6 @@ export default {
             localStorage.setItem("passedExam", JSON.stringify(this.passedExam));
         },
         isPassed(examen) {
-            console.log(this.passedExam);
             this.passedExam.forEach((exam) => {
                 if (exam == examen.id) {
                     this.disableCard = true;
